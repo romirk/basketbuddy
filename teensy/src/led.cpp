@@ -64,18 +64,7 @@ int led_loop()
     }
     else if (BasketBuddy::robot_state == RobotState::R_Autonomous)
     {
-        if (BasketBuddy::velocity.right() < BasketBuddy::velocity.left())
-        {
-            set_turning_leds(1);
-        }
-        else if (BasketBuddy::velocity.right() > BasketBuddy::velocity.left())
-        {
-            set_turning_leds(-1);
-        }
-        else
-        {
-            set_color_leds(CRGB::Green);
-        }
+        // TODO set LEDs
     }
     else if (BasketBuddy::lift.state == LiftState::LS_Up || BasketBuddy::lift.state == LiftState::LS_Down)
     {

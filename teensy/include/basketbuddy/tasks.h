@@ -35,12 +35,12 @@ namespace Tasks
 
 inline void handle_broken_pipe()
 {
-    stop_motors();
-    SignalMessage::send(S_Error, "broken pipe");
+    stop();
+    // send(S_Error, "broken pipe");
     constexpr char zeros[CMD_BUFFER_SIZE * 2] = {0};
     Serial.write(zeros, CMD_BUFFER_SIZE * 2);
     Serial.write(42);
-    SignalMessage::send(S_ErrorRelease, "resynchronized");
+    // send(S_ErrorRelease, "resynchronized");
     while (Serial.available() && Serial.read() != 42)
     {
         /* wait for 42 */

@@ -78,7 +78,7 @@ void lift_sync()
         delayMicroseconds(STEPPER_STEP_DELAY);
     }
 
-    LogMessage::send("Steppers homing...");
+    // send("Steppers homing...");
 
     // left stepper correction
     while (digitalRead(P_ENDSTOP_STEPPER_LEFT))
@@ -87,7 +87,7 @@ void lift_sync()
         delayMicroseconds(STEPPER_STEP_DELAY);
     }
 
-    LogMessage::send("Left stepper homed");
+    // send("Left stepper homed");
 
     // right stepper correction
     while (digitalRead(P_ENDSTOP_STEPPER_RIGHT))
@@ -96,9 +96,9 @@ void lift_sync()
         delayMicroseconds(STEPPER_STEP_DELAY);
     }
 
-    LogMessage::send("Right stepper homed");
+    // send("Right stepper homed");
 
-    LogMessage::send("Moving to base...");
+    // send("Moving to base...");
 
     // move to base
     while (!digitalRead(P_ENDSTOP_STEPPER_RIGHT) && !digitalRead(P_ENDSTOP_STEPPER_LEFT))
@@ -204,7 +204,7 @@ bool async_lift_up()
     {
         BasketBuddy::lift.state = old_state;
         steppers_sleep();
-        LogMessage::send("Failed to start stepper timer");
+        // send("Failed to start stepper timer");
         return false;
     }
     return true;
@@ -225,7 +225,7 @@ bool async_lift_down()
     {
         BasketBuddy::lift.state = old_state;
         steppers_sleep();
-        LogMessage::send("Failed to start stepper timer");
+        // send("Failed to start stepper timer");
         return false;
     }
     return true;

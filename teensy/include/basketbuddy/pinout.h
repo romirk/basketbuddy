@@ -21,48 +21,15 @@
 #define P_LED_PWM_PIN 2
 
 // motor pins ---------------------------------------------------------------
+#define PIN_M_L1 4
+#define PIN_M_L2 5
 
-/// Setting the motor speed for MOTOR_1
+/// Setting the motor speed
 #define P_MOTOR_1_PWM_SPEED 3
-
-/// MOTOR_1 direction pin 1
-///
-/// | Input1 | Input2 | Spinning Direction |
-/// | Low(0) | Low(0) | Motor OFF|
-/// | High(1)| Low(0) | Forward  |
-/// | Low(0) | High(1)| Backward |
-/// | High(1)| High(1)| Motor OFF|
-#define P_MOTOR_1_IN1 4
-
-/// MOTOR_2 direction pin 2
-///
-/// | Input1 | Input2 | Spinning Direction |
-/// | Low(0) | Low(0) | Motor OFF|
-/// | High(1)| Low(0) | Forward  |
-/// | Low(0) | High(1)| Backward |
-/// | High(1)| High(1)| Motor OFF|
-#define P_MOTOR_1_IN2 5
-
-/// Setting the motor speed for MOTOR_2
 #define P_MOTOR_2_PWM_SPEED 8
 
-/// MOTOR_2 direction pin 1
-///
-/// | Input1 | Input2 | Spinning Direction |
-/// | Low(0) | Low(0) | Motor OFF|
-/// | High(1)| Low(0) | Forward  |
-/// | Low(0) | High(1)| Backward |
-/// | High(1)| High(1)| Motor OFF|
-#define P_MOTOR_2_IN1 6
-
-/// MOTOR_2 direction pin 2
-///
-/// | Input1 | Input2 | Spinning Direction |
-/// | Low(0) | Low(0) | Motor OFF|
-/// | High(1)| Low(0) | Forward  |
-/// | Low(0) | High(1)| Backward |
-/// | High(1)| High(1)| Motor OFF|
-#define P_MOTOR_2_IN2 7
+#define PIN_M_R1 6
+#define PIN_M_R2 7
 
 /// The I2C clock line for the INA260 current & voltage sensor for MOTOR_1
 /// This can be used to calculate the output torque and speed of the motor

@@ -13,6 +13,7 @@
 #include <basketbuddy/definitions.h>
 #include <basketbuddy/basketbuddy.h>
 #include <basketbuddy/lifting.h>
+#include <basketbuddy/drive.hpp>
 
 /**
  * @brief Converts a message type to a string.
@@ -34,11 +35,11 @@ inline void setPinModes()
 
     // motors
     pinMode(P_MOTOR_1_PWM_SPEED, OUTPUT);
-    pinMode(P_MOTOR_1_IN1, OUTPUT);
-    pinMode(P_MOTOR_1_IN2, OUTPUT);
+    pinMode(PIN_M_L1, OUTPUT);
+    pinMode(PIN_M_L2, OUTPUT);
     pinMode(P_MOTOR_2_PWM_SPEED, OUTPUT);
-    pinMode(P_MOTOR_2_IN1, OUTPUT);
-    pinMode(P_MOTOR_2_IN2, OUTPUT);
+    pinMode(PIN_M_R1, OUTPUT);
+    pinMode(PIN_M_R2, OUTPUT);
 
     // steppers
     pinMode(P_STEPPER_RIGHT_DIR, OUTPUT);
@@ -100,15 +101,40 @@ void scanI2C();
  */
 int blocking_wait_for(SignalType, int);
 
-inline void stop_motors()
-{
-    motors.stop();
-    async_lift_stop();
-    steppers_sleep();
-    BasketBuddy::velocity.reset();
-}
-
 inline double easeInExpo(uint32_t x)
 {
     return x == 0 ? 0 : 1L << (10 * x - 10);
 }
+
+/**
+ * @brief fast signum function (https://stackoverflow.com/a/4609795/13126442)
+ * @tparam T type of the input
+ * @param val input
+ * @return sign of the input (-1, 0, 1)
+ */
+template <typename T>
+inline int sgn(T val)
+{
+    return (T(0) < val) - (val < T(0));
+}
+
+/**
+ * @brief handles the serial communication with ROS
+ * @return true if velocity was received
+ */
+bool serial_read();
+
+/**
+ * @brief motor control test
+ * @attention tests one set of motor pins ONLY
+ */
+void motor_test();
+
+void servo_test();
+
+/**
+ * @brief sets the motor speeds
+ */
+void set_motors();
+void stop();
+void brake();

@@ -22,8 +22,6 @@ private:
     std::string server_host;
     int server_port;
 
-    // CameraArray cams;
-
     std::thread control_thread;
     std::thread img_thread;
 

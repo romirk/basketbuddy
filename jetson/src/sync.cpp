@@ -1,6 +1,6 @@
 #include <csignal>
 #include <mutex>
-#include "../include/sync.hpp"
+#include "sync.hpp"
 
 std::atomic_bool running;
 

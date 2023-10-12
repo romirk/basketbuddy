@@ -1,6 +1,6 @@
-#include <rover.hpp>
-#include <sync.hpp>
-#include <config.hpp>
+#include "rover.hpp"
+#include "sync.hpp"
+#include "config.hpp"
 
 int main() {
     setupSignalHandler();

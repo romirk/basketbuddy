@@ -6,20 +6,8 @@ set(CMAKE_CXX_STANDARD 17)
 find_package(Boost REQUIRED COMPONENTS program_options)
 include_directories(${Boost_INCLUDE_DIRS})
 
-set(SOURCES
-        src/main.cpp
-        src/rover.cpp
-        src/ports.cpp
-        src/sync.cpp
-        src/config.cpp
-)
-
-set(HEADERS
-        include/rover.hpp
-        include/ports.hpp
-        include/sync.hpp
-        include/config.hpp
-)
+file(GLOB SOURCES CONFIGURE_DEPENDS "src/*.cpp")
+file(GLOB HEADERS CONFIGURE_DEPENDS "include/*.hpp")
 
 include_directories(include)
 add_executable(december ${SOURCES} ${HEADERS})

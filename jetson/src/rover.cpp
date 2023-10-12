@@ -1,5 +1,3 @@
-// #include <CkHttp.h>
-// #include <CkHttpResponse.h>
 #include "rover.hpp"
 
 #include <sys/socket.h>
@@ -9,7 +7,6 @@
 
 #include "ports.hpp"
 #include "sync.hpp"
-
 
 Rover::Rover(boost::program_options::variables_map *options)
     : name(options->at("Options.name").as<std::string>()),

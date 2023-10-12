@@ -1,3 +1,5 @@
+#include "ports.hpp"
+
 #include <arpa/inet.h>
 #include <fcntl.h>
 #include <netdb.h>
@@ -7,7 +9,6 @@
 
 #include <cstdio>
 #include <cstring>
-#include <ports.hpp>
 #include <string>
 
 int createUdpSocket(const std::string &server, int port) {
@@ -60,7 +61,7 @@ int createSerialPort(const char *serial_addr) {
         return -1;
     }
 
-    auto val = fcntl(serial_port, F_GETFL, 0);
+    fcntl(serial_port, F_GETFL, 0);
 
     return serial_port;
 }
@@ -76,7 +77,6 @@ int resolveHelper(const char *hostname, int family, const char *service,
                      // of addresses (one for each socket type).
     result = getaddrinfo(hostname, service, &hints, &result_list);
     if (result == 0) {
-        // ASSERT(result_list->ai_addrlen <= sizeof(sockaddr_in));
         memcpy(pAddr, result_list->ai_addr, result_list->ai_addrlen);
         freeaddrinfo(result_list);
     }

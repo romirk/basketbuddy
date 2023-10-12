@@ -29,7 +29,5 @@ private:
 
     void controlLoop() const;
 
-    std::vector<Camera> cameras;
-
     bool registerServer() const;
 };

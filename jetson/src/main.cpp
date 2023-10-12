@@ -1,6 +1,11 @@
-#include <iostream>
+#include <rover.hpp>
+#include <sync.hpp>
+#include <config.hpp>
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    setupSignalHandler();
+    auto options = Config::load("config/default.ini");
+
+    Rover rover(options);
     return 0;
 }

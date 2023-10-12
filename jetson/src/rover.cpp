@@ -1,24 +1,25 @@
-//#include <CkHttp.h>
-//#include <CkHttpResponse.h>
+// #include <CkHttp.h>
+// #include <CkHttpResponse.h>
+#include "rover.hpp"
+
 #include <sys/socket.h>
 #include <unistd.h>
 
 #include <cstdio>
-#include "../include/ports.hpp"
-#include "../include/rover.hpp"
-#include "../include/sync.hpp"
 
-//#include "camera.hpp"
+#include "ports.hpp"
+#include "sync.hpp"
+
 
 Rover::Rover(boost::program_options::variables_map *options)
-        : name(options->at("Options.name").as<std::string>()),
-          server_host(options->at("Options.server_host").as<std::string>()),
-          server_port(stoi(options->at("Options.server_port").as<std::string>())),
-          udp_host(options->at("Options.udp_host").as<std::string>()),
-          udp_port(stoi(options->at("Options.udp_port").as<std::string>())) {
+    : name(options->at("Options.name").as<std::string>()),
+      udp_host(options->at("Options.udp_host").as<std::string>()),
+      udp_port(stoi(options->at("Options.udp_port").as<std::string>())),
+      server_host(options->at("Options.server_host").as<std::string>()),
+      server_port(stoi(options->at("Options.server_port").as<std::string>())) {
     // create serial port
     this->serial_port = createSerialPort(
-            options->at("Options.serial_addr").as<std::string>().c_str());
+        options->at("Options.serial_addr").as<std::string>().c_str());
 
     if (this->serial_port < 0) {
         printf("\033[1;31mfailed to create serial port; exiting\033[0m\n");
@@ -36,31 +37,10 @@ Rover::Rover(boost::program_options::variables_map *options)
 
     printf("created udp socket: %d\n", this->udp_sock);
 
-    // register with server via http request to /rover
-//    auto result = registerServer();
-//    if (!result) {
-//        printf("\033[1;31mfailed to register with server; exiting\033[0m\n");
-//        return;
-//    }
-    Camera frontleft(0, options->at("Cameras.frontleft").as<std::string>(),
-                     this->udp_sock, server_host, 5000);
-    Camera frontright(1, options->at("Cameras.frontright").as<std::string>(),
-                      this->udp_sock, server_host, 5000);
-    Camera backleft(2, options->at("Cameras.backleft").as<std::string>(),
-                    this->udp_sock, server_host, 5000);
-    Camera backright(3, options->at("Cameras.backright").as<std::string>(),
-                     this->udp_sock, server_host, 5000);
-
     printf("Startup Complete\n");
     printf("--------------------\n");
 
     running.store(true);
-
-    // turn on cameras
-    frontleft.start();
-    frontright.start();
-    backleft.start();
-    backright.start();
 
     this->control_thread = std::thread(&Rover::controlLoop, this);
     this->control_thread.join();

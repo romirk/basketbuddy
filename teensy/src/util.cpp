@@ -151,19 +151,24 @@ void set_motors() {
 
     // set motor speeds
     if (left_v > 0) {
-        analogWrite(PIN_M_L1, left_v);
+        digitalWrite(PIN_M_L1, HIGH);
         digitalWrite(PIN_M_L2, LOW);
+        analogWrite(P_MOTOR_1_PWM_SPEED, left_v);
+
     } else {
-        analogWrite(PIN_M_L2, -left_v);
+        digitalWrite(PIN_M_L2, HIGH);
         digitalWrite(PIN_M_L1, LOW);
+        analogWrite(P_MOTOR_1_PWM_SPEED, -left_v);
     }
 
     if (right_v > 0) {
-        analogWrite(PIN_M_R1, right_v);
+        digitalWrite(PIN_M_R1, HIGH);
         digitalWrite(PIN_M_R2, LOW);
+        analogWrite(P_MOTOR_2_PWM_SPEED, right_v);
     } else {
-        analogWrite(PIN_M_R2, -right_v);
+        digitalWrite(PIN_M_R2, HIGH);
         digitalWrite(PIN_M_R1, LOW);
+        analogWrite(P_MOTOR_2_PWM_SPEED, -right_v);
     }
 }
 

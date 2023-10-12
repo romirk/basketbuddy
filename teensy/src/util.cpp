@@ -21,9 +21,6 @@ void initialize() {
 
     lift_sync();
     steppers_sleep();
-    // ina260_A.begin(0x40, &Wire);
-    // ina260_B.begin(0x40, &Wire1);
-    // ina260_C.begin(0x40, &Wire2);
 
     // initialize serial line to Jetson
 
@@ -36,12 +33,6 @@ void initialize() {
     }
 
     digitalWrite(13, HIGH);
-
-    // signal communication start with Jetson
-    // send(S_Startup);
-    // blocking_wait_for(S_Startup);
-    // send("BasketBuddy Core");
-    // send(VERSION_DATE);
 
     noInterrupts();
     BasketBuddy::robot_state = R_Ready;
@@ -61,7 +52,7 @@ float Q_rsqrt(float number) {
     y = y * (threehalfs -
              (x2 * y * y));  // 1st iteration
                              //	y  = y * ( threehalfs - ( x2 * y * y ) );   //
-                             //2nd iteration, this can be removed
+                             // 2nd iteration, this can be removed
 
     return y;
 }
@@ -116,10 +107,9 @@ void scanI2C() {
     delay(5000);  // wait 5 seconds for next scan
 }
 
+char buffer[8];
 
-uint8_t buffer[8];
-
-bool serial_read() {
+bool read_and_exec() {
     bool r = false;
     while (Serial.available()) {
         auto c = Serial.read();
@@ -129,17 +119,12 @@ bool serial_read() {
                 rover_velocity.linear = buffer[0];
                 rover_velocity.angular = buffer[1];
                 r = true;
-                // Serial.write('A');
-                // Serial.write(rover_velocity.linear);
-                // Serial.write(rover_velocity.angular);
-                // Serial.write('\n');
                 rover_velocity.linear =
                     map(rover_velocity.linear, 0, 200, -100, 100);
                 rover_velocity.angular =
                     map(rover_velocity.angular, 0, 200, -100, 100);
                 rover_velocity.linear ? set_motors() : stop();
                 break;
-
             case 'S':
                 stop();
                 r = true;
@@ -229,4 +214,3 @@ void motor_test() {
         delay(10);
     }
 }
-

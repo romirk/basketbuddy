@@ -119,10 +119,10 @@ inline int sgn(T val)
 }
 
 /**
- * @brief handles the serial communication with ROS
+ * @brief handles serial communication and executes commands
  * @return true if velocity was received
  */
-bool serial_read();
+bool read_and_exec();
 
 /**
  * @brief motor control test

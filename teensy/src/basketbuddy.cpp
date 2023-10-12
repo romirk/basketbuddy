@@ -32,10 +32,9 @@ void BasketBuddy::shutdown()
     stop();
 
     // send(S_Shutdown, "Graceful shutdown.");
-    // blocking_wait_for(S_Acknowledge, 5000); // wait for 5 seconds for acknowledgement
 
     digitalWrite(P_POWER, LOW);
-    exit(0);
+    // exit(0);
 }
 
 void BasketBuddy::emergency_stop()

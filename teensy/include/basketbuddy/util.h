@@ -5,15 +5,15 @@
  * @date 2022-12-27
  * @version 0.1
  *
- * This file contains the utility function declarations for the BasketBuddy project.
+ * This file contains the utility function declarations for the BasketBuddy
+ * project.
  */
 
 #pragma once
 
-#include <basketbuddy/definitions.h>
 #include <basketbuddy/basketbuddy.h>
+#include <basketbuddy/definitions.h>
 #include <basketbuddy/lifting.h>
-#include <basketbuddy/drive.hpp>
 
 /**
  * @brief Converts a message type to a string.
@@ -26,8 +26,7 @@ String messageTypeToString(MessageType);
  * @brief sets pinmodes for the teensy.
  * @return 0 on success, -1 on failure.
  */
-inline void setPinModes()
-{
+inline void setPinModes() {
     // power
     pinMode(P_POWER, OUTPUT);
     pinMode(P_KILLSWITCH, INPUT_PULLUP);
@@ -74,7 +73,8 @@ inline void setPinModes()
 }
 
 /**
- * @brief sets the default values for the global variables and initializes hardware.
+ * @brief sets the default values for the global variables and initializes
+ * hardware.
  */
 void initialize();
 
@@ -101,8 +101,7 @@ void scanI2C();
  */
 int blocking_wait_for(SignalType, int);
 
-inline double easeInExpo(uint32_t x)
-{
+inline double easeInExpo(uint32_t x) {
     return x == 0 ? 0 : 1L << (10 * x - 10);
 }
 
@@ -113,28 +112,8 @@ inline double easeInExpo(uint32_t x)
  * @return sign of the input (-1, 0, 1)
  */
 template <typename T>
-inline int sgn(T val)
-{
+inline int sgn(T val) {
     return (T(0) < val) - (val < T(0));
 }
 
-/**
- * @brief handles serial communication and executes commands
- * @return true if velocity was received
- */
-bool read_and_exec();
-
-/**
- * @brief motor control test
- * @attention tests one set of motor pins ONLY
- */
-void motor_test();
-
-void servo_test();
-
-/**
- * @brief sets the motor speeds
- */
-void set_motors();
-void stop();
-void brake();
+// String log_ina_motors();

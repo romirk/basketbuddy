@@ -7,16 +7,17 @@
 
 #include "ports.hpp"
 #include "sync.hpp"
+#include <cstdint>
 
 Rover::Rover(boost::program_options::variables_map *options)
-    : name(options->at("Options.name").as<std::string>()),
-      udp_host(options->at("Options.udp_host").as<std::string>()),
-      udp_port(stoi(options->at("Options.udp_port").as<std::string>())),
-      server_host(options->at("Options.server_host").as<std::string>()),
-      server_port(stoi(options->at("Options.server_port").as<std::string>())) {
+        : name(options->at("Options.name").as<std::string>()),
+          udp_host(options->at("Options.udp_host").as<std::string>()),
+          udp_port(stoi(options->at("Options.udp_port").as<std::string>())),
+          server_host(options->at("Options.server_host").as<std::string>()),
+          server_port(stoi(options->at("Options.server_port").as<std::string>())) {
     // create serial port
     this->serial_port = createSerialPort(
-        options->at("Options.serial_addr").as<std::string>().c_str());
+            options->at("Options.serial_addr").as<std::string>().c_str());
 
     if (this->serial_port < 0) {
         printf("\033[1;31mfailed to create serial port; exiting\033[0m\n");
@@ -55,32 +56,46 @@ void Rover::controlLoop() const {
         switch (message[0]) {
             case 'V':
                 printf("velocity: %u %u\n", message[1], message[2]);
-                if (write(serial_port, message, 3) < 0) {
-                    ;
+                if (write(serial_port, message, 3) < 0) { ;
                 }  // print error message
                 break;
             case 'S':
                 printf("stopping\n");
-                if (write(serial_port, "Vdd", 3) < 0) {
-                    ;
+                if (write(serial_port, "Vdd", 3) < 0) { ;
                 }
                 running.store(false);
                 break;
             case 'B':
                 printf("braking\n");
-                if (write(serial_port, message, 1) < 0) {
-                    ;
+                if (write(serial_port, message, 1) < 0) { ;
                 }  // print error message
                 break;
             case 'L':
                 printf("Lift\n");
-                if (write(serial_port, message, 1) < 0) {
-                    ;
+                if (write(serial_port, message, 1) < 0) { ;
                 }  // print error message
                 break;
             default:
                 break;
         }
+
+        // read from serial
+        uint8_t serial_message[3] = {0};
+        if (read(serial_port, serial_message, 3) < 0) { ;
+        }  // print error message
+
+        int16_t val = (int16_t) serial_message[1] << 8 | serial_message[2];
+        switch (serial_message[0]) {
+            case 'C':
+                printf("current: %i\n", val);
+                break;
+            case 'V':
+                printf("voltage: %i\n", val);
+                break;
+            default:
+                break;
+        }
+
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 

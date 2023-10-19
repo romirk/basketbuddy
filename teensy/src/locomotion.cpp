@@ -8,53 +8,84 @@
 
 #include <basketbuddy/locomotion.h>
 
-void led_demo()
-{
-    setup();
-    while (true)
-    {
-        loop();
-        delay(1000);
+void set_motors() {
+    // differential drive
+    float left, right;
+    forward_kinematics(rover_velocity.linear, rover_velocity.angular, left,
+                       right);
+
+    auto left_v = constrain((int)(255 * left / V_MAX), -255, 255);
+    auto right_v = constrain((int)(255 * right / V_MAX), -255, 255);
+
+    // set motor speeds
+    if (left_v > 0) {
+        digitalWrite(PIN_M_L1, HIGH);
+        digitalWrite(PIN_M_L2, LOW);
+        analogWrite(P_MOTOR_1_PWM_SPEED, left_v);
+
+    } else {
+        digitalWrite(PIN_M_L2, HIGH);
+        digitalWrite(PIN_M_L1, LOW);
+        analogWrite(P_MOTOR_1_PWM_SPEED, -left_v);
+    }
+
+    if (right_v > 0) {
+        digitalWrite(PIN_M_R1, HIGH);
+        digitalWrite(PIN_M_R2, LOW);
+        analogWrite(P_MOTOR_2_PWM_SPEED, right_v);
+    } else {
+        digitalWrite(PIN_M_R2, HIGH);
+        digitalWrite(PIN_M_R1, LOW);
+        analogWrite(P_MOTOR_2_PWM_SPEED, -right_v);
     }
 }
 
-void loco_demo()
-{
-    Serial.println("Locomotion demo");
-    Serial.println("speed 200");
-    motors.setSpeed(200);
-    Serial.println("forward");
-    motors.forward();
-    delay(3000);
-    Serial.println("backward");
-    motors.backward();
-    delay(3000);
-    Serial.println("stop");
-    motors.stop();
-    delay(3000);
-    Serial.println("rotate left");
-    motors.forwardA();
-    motors.backwardB();
-    delay(3000);
-    motors.stop();
-    delay(3000);
-    Serial.println("rotate right");
-    motors.backwardA();
-    motors.forwardB();
-    delay(3000);
-    motors.stop();
-    delay(3000);
+void stop() {
+    digitalWrite(PIN_M_L2, LOW);
+    digitalWrite(PIN_M_L1, LOW);
+    digitalWrite(PIN_M_R2, LOW);
+    digitalWrite(PIN_M_R1, LOW);
 }
 
-String log_ina_motors()
-{
-    String s = "";
-    s += (int)ina260_A.readCurrent();
-    s += " ";
-    s += (int)ina260_A.readBusVoltage();
-    s += "|";
-    s += (int)ina260_B.readCurrent();
-    s += " ";
-    s += (int)ina260_B.readBusVoltage();
-    return s;
+void brake() {
+    digitalWrite(PIN_M_L2, HIGH);
+    digitalWrite(PIN_M_L1, HIGH);
+    digitalWrite(PIN_M_R2, HIGH);
+    digitalWrite(PIN_M_R1, HIGH);
+    digitalWrite(P_MOTOR_1_PWM_SPEED, HIGH);
+    digitalWrite(P_MOTOR_2_PWM_SPEED, HIGH);
+}
+
+void motor_test() {
+    // ramp up forward
+    digitalWrite(PIN_M_L1, LOW);
+    for (int i = 0; i < 255; i++) {
+        analogWrite(PIN_M_L2, i);
+        delay(10);
+    }
+
+    // forward full speed for one second
+    delay(1000);
+
+    // ramp down forward
+    for (int i = 255; i >= 0; i--) {
+        analogWrite(PIN_M_L2, i);
+        delay(10);
+    }
+
+    // ramp up backward
+    digitalWrite(PIN_M_L2, LOW);
+    for (int i = 0; i < 255; i++) {
+        analogWrite(PIN_M_L1, i);
+        delay(10);
+    }
+
+    // backward full speed for one second
+    delay(1000);
+
+    // ramp down backward
+    for (int i = 255; i >= 0; i--) {
+        analogWrite(PIN_M_L1, i);
+        delay(10);
+    }
 }

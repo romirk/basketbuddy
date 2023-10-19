@@ -10,6 +10,12 @@
 
 #include <basketbuddy/lifting.h>
 #include <basketbuddy/locomotion.h>
-#include <basketbuddy/message.h>
+#include <basketbuddy/util.h>
 
 #include <vector>
+
+/**
+ * @brief handles serial communication and executes commands
+ * @return true if velocity was received
+ */
+bool read_and_exec();

@@ -12,7 +12,5 @@
 // hardware
 
 Adafruit_INA260 ina260_A = Adafruit_INA260();
-Adafruit_INA260 ina260_B = Adafruit_INA260();
-Adafruit_INA260 ina260_C = Adafruit_INA260();
 
 L298NX2 motors(P_MOTOR_1_PWM_SPEED, PIN_M_L1, PIN_M_L2, P_MOTOR_2_PWM_SPEED, PIN_M_R1, PIN_M_R2);

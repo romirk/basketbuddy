@@ -10,6 +10,19 @@
 
 #include <basketbuddy/definitions.h>
 
-void loco_demo();
-void led_demo();
-String log_ina_motors();
+#include <basketbuddy/drive.hpp>
+
+/**
+ * @brief motor control test
+ * @attention tests one set of motor pins ONLY
+ */
+void motor_test();
+
+void servo_test();
+
+/**
+ * @brief sets the motor speeds
+ */
+void set_motors();
+void stop();
+void brake();

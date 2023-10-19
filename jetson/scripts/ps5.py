@@ -81,7 +81,7 @@ def linear_stick(x, y):
 def angular_stick(x, y):
     global velocity
     # map x from [-127, 128] to [-100, 100]
-    x = int(x * (100 / 127))
+    x = -int(x * (100 / 127))
     if abs(x) > DEADZONE:
         velocity[1] = x
         cmd_vel(velocity[0], velocity[1])

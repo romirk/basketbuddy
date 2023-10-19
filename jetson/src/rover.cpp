@@ -73,7 +73,7 @@ void Rover::controlLoop() const {
                 }  // print error message
                 break;
             case 'L':
-                printf("LED\n");
+                printf("Lift\n");
                 if (write(serial_port, message, 1) < 0) {
                     ;
                 }  // print error message

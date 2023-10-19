@@ -133,6 +133,21 @@ bool read_and_exec() {
                 brake();
                 r = true;
                 break;
+            case 'L':
+                Serial.readBytes(buffer, 1);
+                switch (buffer[0]) {
+                    case 'U':
+                        async_lift_up();
+                        break;
+                    case 'D':
+                        async_lift_down();
+                        break;
+                    case 'S':
+                        async_lift_stop();
+                        break;
+                    default:
+                        break;
+                }
             default:
                 break;
         }

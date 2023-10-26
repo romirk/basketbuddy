@@ -1,0 +1,12 @@
+[Unit]
+Description=BasketBuddy
+After=network.target
+
+[Service]
+ExecStart=/home/jetson/basketbuddy/jetson/build/december
+Restart=on-failure
+RestartSec=10s
+WorkingDirectory=/home/jetson/basketbuddy
+
+[Install]
+WantedBy=multi-user.target

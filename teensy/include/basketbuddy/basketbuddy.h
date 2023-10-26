@@ -25,7 +25,6 @@ extern Lift lift;
 extern volatile EstopState estop;
 
 // methods
-extern void send(MessageType, String);
 extern void shutdown();
 extern void emergency_stop();
 

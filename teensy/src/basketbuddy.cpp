@@ -8,7 +8,6 @@
 
 #include <basketbuddy/basketbuddy.h>
 #include <basketbuddy/locomotion.h>
-#include <basketbuddy/message.h>
 #include <basketbuddy/util.h>
 
 using namespace BasketBuddy;
@@ -17,10 +16,6 @@ Velocity BasketBuddy::velocity = {0};
 RobotState BasketBuddy::robot_state = R_Startup;
 Lift BasketBuddy::lift = {0};
 volatile EstopState BasketBuddy::estop = ES_Disabled;
-
-void BasketBuddy::send(MessageType type, String data) {
-    Serial.write(create_message(type, data)->serialize(), CMD_BUFFER_SIZE);
-}
 
 void BasketBuddy::shutdown() {
     noInterrupts();

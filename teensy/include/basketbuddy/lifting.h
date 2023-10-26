@@ -7,7 +7,6 @@
  */
 
 #include <basketbuddy/basketbuddy.h>
-#include <basketbuddy/message.h>
 
 extern IntervalTimer stepper_timer;
 

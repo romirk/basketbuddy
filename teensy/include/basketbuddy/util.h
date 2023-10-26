@@ -16,13 +16,6 @@
 #include <basketbuddy/lifting.h>
 
 /**
- * @brief Converts a message type to a string.
- * @param type The message type to convert.
- * @return The string representation of the message type.
- */
-String messageTypeToString(MessageType);
-
-/**
  * @brief sets pinmodes for the teensy.
  * @return 0 on success, -1 on failure.
  */
@@ -92,14 +85,6 @@ String padString(const char *, unsigned);
 
 // unused
 void scanI2C();
-
-/**
- * @brief Blocks the program until a signal is received.
- * @param type The type of signal to wait for.
- * @param timeout The timeout in milliseconds.
- * @return 0 on success, -1 on failure.
- */
-int blocking_wait_for(SignalType, int);
 
 inline double easeInExpo(uint32_t x) {
     return x == 0 ? 0 : 1L << (10 * x - 10);

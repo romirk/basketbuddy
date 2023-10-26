@@ -40,5 +40,6 @@ void loop() {
     read_and_exec();
 
     delay(last_time + CLOCK_PERIOD - millis());
+    last_time = millis();
     loop_number = (loop_number + 1) % (CLOCK_RATE);
 }

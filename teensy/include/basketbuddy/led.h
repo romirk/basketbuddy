@@ -12,7 +12,6 @@
 
 #include <FastLED.h>
 #include <basketbuddy/basketbuddy.h>
-#include <basketbuddy/message.h>
 
 #define NUM_LEDS 8
 #define LED_TYPE WS2812B

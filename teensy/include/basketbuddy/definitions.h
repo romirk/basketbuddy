@@ -80,26 +80,6 @@ enum RobotState {
 
 };
 
-class Message;
-enum MessageType {
-    M_Log = TYPE_OFFSET,
-    M_Signal,
-    M_Move,
-    M_Lift,
-    M_Telemetry,
-};
-
-enum SignalType {
-    S_Startup = SIGNAL_OFFSET,
-    S_Shutdown,
-    S_Estop,
-    S_EstopRelease,
-    S_Error,
-    S_ErrorRelease,
-    S_Heartbeat,
-    S_Acknowledge,
-};
-
 enum EstopState {
     ES_Disabled,
     ES_Enabled,

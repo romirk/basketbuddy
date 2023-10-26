@@ -10,7 +10,6 @@
 
 #include <basketbuddy/basketbuddy.h>
 #include <basketbuddy/interrupts.h>
-#include <basketbuddy/message.h>
 #include <basketbuddy/tasks.h>
 #include <basketbuddy/util.h>
 #include <basketbuddy/lifting.h>

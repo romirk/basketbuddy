@@ -75,7 +75,7 @@ void Rover::controlLoop() const {
                 break;
             case 'L':
                 printf("Lift\n");
-                if (write(serial_port, message, 1) < 0)
+                if (write(serial_port, message, 2) < 0)
                     ;  // print error message
                 break;
             default:
@@ -96,6 +96,7 @@ void Rover::controlLoop() const {
                 printf("voltage: %i\n", val);
                 break;
             default:
+                printf("%c", serial_message[0]);
                 break;
         }
 

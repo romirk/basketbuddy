@@ -18,7 +18,7 @@
 char buffer[8];
 
 bool read_and_exec() {
-    if (BasketBuddy::estop) {
+    if (BasketBuddy::estop == ES_Enabled) {
         BasketBuddy::emergency_stop();
         return false;
     }
@@ -35,7 +35,6 @@ bool read_and_exec() {
                 Serial.readBytes(buffer, 2);
                 BasketBuddy::velocity.linear = buffer[0];
                 BasketBuddy::velocity.angular = buffer[1];
-                r = true;
                 BasketBuddy::velocity.linear =
                     map(BasketBuddy::velocity.linear, 0, 200, -100, 100);
                 BasketBuddy::velocity.angular =
@@ -44,16 +43,15 @@ bool read_and_exec() {
                 break;
             case 'S':
                 stop();
-                r = true;
                 break;
             case 'B':
                 brake();
-                r = true;
                 break;
             case 'L':
                 Serial.readBytes(buffer, 1);
                 switch (buffer[0]) {
                     case 'U':
+                        Serial.write('U');
                         BasketBuddy::lift.target = LIFT_UP_TARGET;
                         steppers_enable();
                         break;
@@ -72,13 +70,13 @@ bool read_and_exec() {
                 break;
         }
     }
-    auto current = (int16_t)ina260_A.readCurrent();
-    auto voltage = (int16_t)ina260_A.readBusVoltage();
+    // auto current = (int16_t)ina260_A.readCurrent();
+    // auto voltage = (int16_t)ina260_A.readBusVoltage();
 
-    // write current and voltage to serial
-    Serial.write('C');
-    Serial.write((uint8_t *)&current, 2);
-    Serial.write('V');
-    Serial.write((uint8_t *)&voltage, 2);
+    // // write current and voltage to serial
+    // Serial.write('C');
+    // Serial.write((uint8_t *)&current, 2);
+    // Serial.write('V');
+    // Serial.write((uint8_t *)&voltage, 2);
     return r;
 }

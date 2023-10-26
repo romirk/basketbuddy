@@ -52,7 +52,7 @@ void steppers_enable() {
 }
 
 bool lift_sync_step() {
-    if (BasketBuddy::estop ||
+    if (BasketBuddy::estop == ES_Enabled ||
         BasketBuddy::lift.target == BasketBuddy::lift.position) {
         steppers_sleep();
         return false;

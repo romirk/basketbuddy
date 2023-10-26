@@ -23,6 +23,6 @@ void servo_test();
 /**
  * @brief sets the motor speeds
  */
-void set_motors();
+void cmd_vel();
 void stop();
 void brake();

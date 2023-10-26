@@ -52,10 +52,13 @@ void steppers_enable() {
 }
 
 bool lift_sync_step() {
-    if (BasketBuddy::estop || BasketBuddy::lift.target == -1 ||
-        stepper_fault()) {
+    if (BasketBuddy::estop ||
+        BasketBuddy::lift.target == BasketBuddy::lift.position) {
+        steppers_sleep();
         return false;
     }
+
+    if (stepper_fault()) steppers_enable();
 
     if (BasketBuddy::lift.target > BasketBuddy::lift.position) {
         lift_step_up();
@@ -63,10 +66,6 @@ bool lift_sync_step() {
     } else if (BasketBuddy::lift.target < BasketBuddy::lift.position) {
         lift_step_down();
         BasketBuddy::lift.position--;
-    } else {
-        steppers_sleep();
-        BasketBuddy::lift.target = -1;
-        return false;
     }
     return true;
 }

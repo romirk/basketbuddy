@@ -24,8 +24,6 @@ extern RobotState robot_state;
 extern Lift lift;
 extern volatile EstopState estop;
 
-// controllers
-
 // methods
 extern void send(MessageType, String);
 extern void shutdown();

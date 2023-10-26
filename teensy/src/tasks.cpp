@@ -27,6 +27,10 @@ bool read_and_exec() {
     while (Serial.available()) {
         auto c = Serial.read();
         switch (c) {
+            case 'E':
+                BasketBuddy::emergency_stop();
+                r = true;
+                break;
             case 'V':
                 Serial.readBytes(buffer, 2);
                 BasketBuddy::velocity.linear = buffer[0];
@@ -36,7 +40,7 @@ bool read_and_exec() {
                     map(BasketBuddy::velocity.linear, 0, 200, -100, 100);
                 BasketBuddy::velocity.angular =
                     map(BasketBuddy::velocity.angular, 0, 200, -100, 100);
-                BasketBuddy::velocity.linear ? set_motors() : stop();
+                cmd_vel();
                 break;
             case 'S':
                 stop();
@@ -58,7 +62,7 @@ bool read_and_exec() {
                         steppers_enable();
                         break;
                     case 'S':
-                        BasketBuddy::lift.target = -1;
+                        BasketBuddy::lift.target = BasketBuddy::lift.position;
                         steppers_sleep();
                         break;
                     default:

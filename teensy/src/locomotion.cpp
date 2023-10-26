@@ -9,7 +9,7 @@
 #include <basketbuddy/basketbuddy.h>
 #include <basketbuddy/locomotion.h>
 
-void set_motors() {
+void cmd_vel() {
     // differential drive
     float left, right;
     forward_kinematics(BasketBuddy::velocity.linear,
@@ -46,6 +46,8 @@ void stop() {
     digitalWrite(PIN_M_L1, LOW);
     digitalWrite(PIN_M_R2, LOW);
     digitalWrite(PIN_M_R1, LOW);
+    digitalWrite(P_MOTOR_1_PWM_SPEED, LOW);
+    digitalWrite(P_MOTOR_2_PWM_SPEED, LOW);
 }
 
 void brake() {

@@ -4,7 +4,7 @@ import socket
 from pydualsense import *
 
 parser = argparse.ArgumentParser(description='PS5 controller test')
-parser.add_argument('--ip', type=str, default='192.168.1.114', help='UDP IP address')
+parser.add_argument('--ip', type=str, default='192.168.1.100', help='UDP IP address')
 parser.add_argument('--port', type=int, default=5000, help='UDP port')
 parser.add_argument('--deadzone', type=int, default=10, help='Joystick deadzone')
 args = parser.parse_args()
@@ -49,18 +49,21 @@ def led_toggle(state):
 
 
 def lift_up(state):
-    cmd = bytes([ord('L'), ord('U')])
-    send_cmd(cmd)
+    if state:
+        cmd = bytes([ord('L'), ord('U')])
+        send_cmd(cmd)
 
 
 def lift_down(state):
-    cmd = bytes([ord('L'), ord('D')])
-    send_cmd(cmd)
+    if state:
+        cmd = bytes([ord('L'), ord('D')])
+        send_cmd(cmd)
 
 
 def lift_stop(state):
-    cmd = bytes([ord('L'), ord('S')])
-    send_cmd(cmd)
+    if state:
+        cmd = bytes([ord('L'), ord('S')])
+        send_cmd(cmd)
 
 
 velocity = [0, 0]
@@ -70,6 +73,9 @@ def linear_stick(x, y):
     global velocity
     # map y from [-127, 128] to [-100, 100]
     y = -int(y * (100 / 127))
+    # interpolate between red and purple
+    color = [int(255 * (y + 100) / 200), 0, int(255 * (100 - y) / 200)]
+    dualsense.light.setColorI(color[0], color[1], color[2])
     if abs(y) > DEADZONE:
         velocity[0] = y
         cmd_vel(velocity[0], velocity[1])
@@ -99,7 +105,7 @@ if __name__ == '__main__':
     # find device and initialize
     dualsense.init()
 
-    dualsense.light.setColorI(255, 0, 0)
+    dualsense.light.setColorI(0, 0, 255)
 
     # add events handler functions
     dualsense.left_joystick_changed += linear_stick
@@ -114,6 +120,9 @@ if __name__ == '__main__':
     # read controller state until options is pressed
     while not dualsense.state.options:
         ...
+
+    # set light to blue
+    dualsense.light.setColorI(0, 0, 255)
 
     # close device
     dualsense.close()

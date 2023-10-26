@@ -23,7 +23,7 @@ Rover::Rover(boost::program_options::variables_map *options)
 
     if (this->serial_port < 0) {
         printf("\033[1;31mfailed to create serial port; exiting\033[0m\n");
-        return;
+        exit(1);
     }
 
     printf("created serial port: %d\n", this->serial_port);
@@ -32,7 +32,7 @@ Rover::Rover(boost::program_options::variables_map *options)
 
     if (this->udp_sock < 0) {
         printf("\033[1;31mfailed to create udp socket; exiting\033[0m\n");
-        return;
+        exit(1);
     }
 
     printf("created udp socket: %d\n", this->udp_sock);
@@ -83,7 +83,7 @@ void Rover::controlLoop() const {
         }
 
         // read from serial
-        uint8_t serial_message[3] = {0};
+        uint8_t serial_message[6] = {0};
         if (read(serial_port, serial_message, 6) < 0)
             ;  // print error message
 

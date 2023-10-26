@@ -84,22 +84,12 @@ void Rover::controlLoop() const {
 
         // read from serial
         uint8_t serial_message[3] = {0};
-        if (read(serial_port, serial_message, 3) < 0)
+        if (read(serial_port, serial_message, 6) < 0)
             ;  // print error message
 
-        int16_t val = (int16_t)serial_message[1] << 8 | serial_message[2];
-        switch (serial_message[0]) {
-            case 'C':
-                printf("current: %i\n", val);
-                break;
-            case 'V':
-                printf("voltage: %i\n", val);
-                break;
-            default:
-                printf("%c", serial_message[0]);
-                break;
-        }
-
+        int16_t cur = (int16_t)serial_message[1] << 8 | serial_message[2];
+        int16_t vol = (int16_t)serial_message[3] << 8 | serial_message[4];
+        printf("current: %d, voltage: %d\n", cur, vol);
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 

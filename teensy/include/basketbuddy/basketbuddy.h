@@ -17,19 +17,18 @@
  * This namespace contains the global variables for the BasketBuddy project.
  * It also contains the global functions.
  */
-namespace BasketBuddy
-{
-    // state variables
-    extern Velocity velocity;
-    extern volatile RobotState robot_state;
-    extern volatile Lift lift;
-    extern volatile EstopState estop;
+namespace BasketBuddy {
+// state variables
+extern Velocity velocity;
+extern RobotState robot_state;
+extern Lift lift;
+extern volatile EstopState estop;
 
-    // controllers
+// controllers
 
-    // methods
-    extern void send(MessageType, String);
-    extern void shutdown();
-    extern void emergency_stop();
+// methods
+extern void send(MessageType, String);
+extern void shutdown();
+extern void emergency_stop();
 
-}; // namespace BasketBuddy
+};  // namespace BasketBuddy

@@ -14,8 +14,6 @@ extern IntervalTimer stepper_timer;
 void steppers_sleep();
 void steppers_enable();
 
-void lift_sync();
+bool lift_sync_step();
 
-void async_lift_stop();
-bool async_lift_up();
-bool async_lift_down();
+void lift_home();

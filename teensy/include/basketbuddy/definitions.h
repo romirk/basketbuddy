@@ -54,8 +54,8 @@
 #define LIFT_ASYNC_STARTED 4
 
 #define MAX_STEPS 14000  // 1 step = 0.01 mm
-#define LIFT_UP_POSITION 13000
-#define LIFT_DOWN_POSITION 0
+#define LIFT_UP_TARGET 13000
+#define LIFT_DOWN_TARGET 0
 
 // hardware
 
@@ -112,12 +112,10 @@ typedef uint8_t status_t;
 
 typedef struct {
     uint32_t position;
-    LiftState state;
+    uint32_t target;
 } __attribute__((packed)) Lift;
 
 typedef struct {
     int linear;
     int angular;
 } Velocity;
-
-extern Velocity rover_velocity;

@@ -7,24 +7,22 @@
  */
 
 #include <basketbuddy/basketbuddy.h>
-#include <basketbuddy/message.h>
 #include <basketbuddy/locomotion.h>
+#include <basketbuddy/message.h>
 #include <basketbuddy/util.h>
 
 using namespace BasketBuddy;
 
-Velocity BasketBuddy::velocity = {0, 0};
-volatile RobotState BasketBuddy::robot_state = R_Startup;
-volatile Lift BasketBuddy::lift = {0, LS_Down};
+Velocity BasketBuddy::velocity = {0};
+RobotState BasketBuddy::robot_state = R_Startup;
+Lift BasketBuddy::lift = {0};
 volatile EstopState BasketBuddy::estop = ES_Disabled;
 
-void BasketBuddy::send(MessageType type, String data)
-{
+void BasketBuddy::send(MessageType type, String data) {
     Serial.write(create_message(type, data)->serialize(), CMD_BUFFER_SIZE);
 }
 
-void BasketBuddy::shutdown()
-{
+void BasketBuddy::shutdown() {
     noInterrupts();
     robot_state = R_Shutdown;
     estop = ES_Enabled;
@@ -37,13 +35,14 @@ void BasketBuddy::shutdown()
     // exit(0);
 }
 
-void BasketBuddy::emergency_stop()
-{
+void BasketBuddy::emergency_stop() {
+    if (estop == ES_Enabled) return;
+
     noInterrupts();
     estop = ES_Enabled;
     robot_state = R_Estop;
     interrupts();
-    
+
     stop();
 
     // send(S_Estop);
@@ -52,5 +51,3 @@ void BasketBuddy::emergency_stop()
     // blocking_wait_for(S_Startup, -1);
     initialize();
 }
-
-Velocity rover_velocity = {0};

@@ -19,7 +19,7 @@ void initialize() {
 
     // initialize hardware
 
-    lift_sync();
+    lift_home();
     steppers_sleep();
 
     // initialize serial line to Jetson

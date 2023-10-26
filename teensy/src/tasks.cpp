@@ -18,20 +18,25 @@
 char buffer[8];
 
 bool read_and_exec() {
+    if (BasketBuddy::estop) {
+        BasketBuddy::emergency_stop();
+        return false;
+    }
+
     bool r = false;
     while (Serial.available()) {
         auto c = Serial.read();
         switch (c) {
             case 'V':
                 Serial.readBytes(buffer, 2);
-                rover_velocity.linear = buffer[0];
-                rover_velocity.angular = buffer[1];
+                BasketBuddy::velocity.linear = buffer[0];
+                BasketBuddy::velocity.angular = buffer[1];
                 r = true;
-                rover_velocity.linear =
-                    map(rover_velocity.linear, 0, 200, -100, 100);
-                rover_velocity.angular =
-                    map(rover_velocity.angular, 0, 200, -100, 100);
-                rover_velocity.linear ? set_motors() : stop();
+                BasketBuddy::velocity.linear =
+                    map(BasketBuddy::velocity.linear, 0, 200, -100, 100);
+                BasketBuddy::velocity.angular =
+                    map(BasketBuddy::velocity.angular, 0, 200, -100, 100);
+                BasketBuddy::velocity.linear ? set_motors() : stop();
                 break;
             case 'S':
                 stop();
@@ -45,13 +50,16 @@ bool read_and_exec() {
                 Serial.readBytes(buffer, 1);
                 switch (buffer[0]) {
                     case 'U':
-                        async_lift_up();
+                        BasketBuddy::lift.target = LIFT_UP_TARGET;
+                        steppers_enable();
                         break;
                     case 'D':
-                        async_lift_down();
+                        BasketBuddy::lift.target = LIFT_DOWN_TARGET;
+                        steppers_enable();
                         break;
                     case 'S':
-                        async_lift_stop();
+                        BasketBuddy::lift.target = -1;
+                        steppers_sleep();
                         break;
                     default:
                         break;

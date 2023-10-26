@@ -6,13 +6,14 @@
  * @version 0.1
  */
 
+#include <basketbuddy/basketbuddy.h>
 #include <basketbuddy/locomotion.h>
 
 void set_motors() {
     // differential drive
     float left, right;
-    forward_kinematics(rover_velocity.linear, rover_velocity.angular, left,
-                       right);
+    forward_kinematics(BasketBuddy::velocity.linear,
+                       BasketBuddy::velocity.angular, left, right);
 
     auto left_v = constrain((int)(255 * left / V_MAX), -255, 255);
     auto right_v = constrain((int)(255 * right / V_MAX), -255, 255);

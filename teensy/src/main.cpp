@@ -28,21 +28,17 @@ void setup() {
     // RISING);
 }
 
+auto last_time = millis();
 void loop() {
-    auto t_start = millis();
-    auto t_end = t_start + CLOCK_PERIOD;
+    if (!Serial) initialize();
 
-    if (BasketBuddy::estop && BasketBuddy::robot_state != R_Estop)
-        BasketBuddy::emergency_stop();
-    else if (BasketBuddy::robot_state == R_Shutdown)
-        BasketBuddy::shutdown();
-
-    if (!Serial) {
-        initialize();
+    if (lift_sync_step()) {
+        delayMicroseconds(STEPPER_STEP_DELAY);
+        return;
     }
 
     read_and_exec();
 
-    delay(t_end - millis());
+    delay(last_time + CLOCK_PERIOD - millis());
     loop_number = (loop_number + 1) % (CLOCK_RATE);
 }

@@ -9,7 +9,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 from ament_index_python.packages import get_package_share_directory
 
-BB_SHARE = "/bb/ros_ws/install/basketbuddy/share"
+BB_SHARE = "/bb/ros_ws/install/basketbuddy/share/basketbuddy"
 
 def generate_launch_description():
 

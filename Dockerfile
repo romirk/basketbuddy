@@ -10,11 +10,18 @@ RUN apt update && apt upgrade -y && \
 
 RUN rosdep init && rosdep update
 
-COPY ./ros_ws/src /bb/ros_ws/src
 COPY ./scripts/start.sh /bb/start.sh
+COPY ./ros_ws/src/ldrobot-lidar-ros2/ /bb/ros_ws/src/ldrobot-lidar-ros2/
 
 RUN cd /bb/ros_ws && bash -c ". /opt/ros/humble/setup.bash && \
     rosdep install --from-paths src --ignore-src -r -y && \
-    colcon build --symlink-install --cmake-args=-DCMAKE_BUILD_TYPE=Release"
+    colcon build --symlink-install --cmake-args=-DCMAKE_BUILD_TYPE=Release \
+    --packages-select ldlidar_node ldlidar_component"
 
-CMD ["bash"]
+COPY ./ros_ws/src/basketbuddy /bb/ros_ws/src/basketbuddy
+RUN cd /bb/ros_ws && bash -c ". /opt/ros/humble/setup.bash && \
+    rosdep install --from-paths src --ignore-src -r -y && \
+    colcon build --symlink-install --cmake-args=-DCMAKE_BUILD_TYPE=Release \
+    --packages-select basketbuddy"
+
+CMD ["bash", "/bb/start.sh"]

@@ -8,8 +8,13 @@ RUN apt update && apt upgrade -y && \
     && apt-get autoremove -y && \
     apt-get clean
 
-COPY . /bb
+RUN rosdep init && rosdep update
 
-RUN bash /bb/scripts/setup.sh
+COPY ./ros_ws/src /bb/ros_ws/src
+COPY ./scripts/start.sh /bb/start.sh
+
+RUN cd /bb/ros_ws && bash -c ". /opt/ros/humble/setup.bash && \
+    rosdep install --from-paths src --ignore-src -r -y && \
+    colcon build --symlink-install --cmake-args=-DCMAKE_BUILD_TYPE=Release"
 
 CMD ["bash"]

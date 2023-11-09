@@ -8,4 +8,8 @@ services:
       - ./maps:/maps
     devices:
       - /dev/ldlidar:/dev/ldlidar
-    command: bash /bb/scripts/start.sh
+      - /dev/ttyACM0:/dev/ttyACM0
+      - /dev/ttyUSB0:/dev/ttyUSB0
+    command: bash /bb/start.sh
+    network_mode: host
+

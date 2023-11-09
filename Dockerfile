@@ -18,7 +18,8 @@ RUN cd /bb/ros_ws && bash -c ". /opt/ros/humble/setup.bash && \
 
 # everything above this line is cached
 
-RUN apt install -y ros-${ROS_DISTRO}-cartographer
+RUN apt install -y ros-${ROS_DISTRO}-cartographer \
+    ros-${ROS_DISTRO}-cartographer
 
 COPY ./ros_ws/src/basketbuddy /bb/ros_ws/src/basketbuddy
 RUN cd /bb/ros_ws && bash -c ". /opt/ros/humble/setup.bash && \

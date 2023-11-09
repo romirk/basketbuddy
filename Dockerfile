@@ -6,8 +6,7 @@ RUN apt update && apt upgrade -y && \
     python3-rosdep python3-colcon-common-extensions \
     ros-${ROS_DISTRO}-diagnostic-updater \
     && apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get clean
 
 COPY . /bb
 

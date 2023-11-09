@@ -5,7 +5,8 @@ ENV OPENCV_URL='https://nvidia.box.com/shared/static/2hssa5g3v28ozvo3tc3qwxmn78y
 
 COPY . /bb
 
-RUN cd /opt && bash /bb/scripts/opencv_install.sh
+# RUN cd /opt && bash /bb/scripts/opencv_install.sh
+RUN apt-get purge -y '.*opencv.*' || echo "previous OpenCV installation not found"
 
 RUN apt update && apt upgrade -y && \
     apt install -y ros-${ROS_DISTRO}-slam-toolbox && \

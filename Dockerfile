@@ -27,8 +27,10 @@ RUN cd /bb/ros_ws && bash -c ". /opt/ros/humble/setup.bash && \
     colcon build --symlink-install --cmake-args=-DCMAKE_BUILD_TYPE=Release \
     --packages-select basketbuddy"
 
-RUN apt-get autoremove -y && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* 
+RUN apt remove python3-pip python3-rosdep python3-colcon-common-extensions \
+    git && apt autoremove -y && apt clean \
+    && rm -rf /var/lib/apt/lists/* /bb/ros_ws/log /bb/ros_ws/src \
+    /etc/ros/rosdep /bb/ros_ws/build
 
 COPY ./scripts/start.sh /bb/start.sh
 

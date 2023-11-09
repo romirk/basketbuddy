@@ -30,8 +30,7 @@ RUN cd /bb/ros_ws && bash -c ". /opt/ros/humble/setup.bash && \
 RUN apt remove -y python3-pip python3-rosdep \
     python3-colcon-common-extensions git && \
     SUDO_FORCE_REMOVE=yes apt autoremove -y && apt clean && \
-    rm -rf /var/lib/apt/lists/* /bb/ros_ws/log /bb/ros_ws/src \
-    /etc/ros/rosdep /bb/ros_ws/build
+    rm -rf /var/lib/apt/lists/* /bb/ros_ws/log /etc/ros/rosdep
 
 COPY ./scripts/start.sh /bb/start.sh
 

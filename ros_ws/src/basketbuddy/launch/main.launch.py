@@ -15,7 +15,7 @@ def generate_launch_description():
 
     og_node = Node(
         package="cartographer_ros",
-        executable="occupancy_grid_node",
+        executable="cartographer_occupancy_grid_node",
         arguments="--resolution 0.05 --publish_period_sec 1.0".split(),
         # remappings=[("/ldlidar_node/scan", "/scan")]
     )

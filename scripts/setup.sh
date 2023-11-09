@@ -13,6 +13,8 @@ function require_package(package_name) {
 
 # check for packages
 require_package git
+require_package python3
+require_package python3-pip
 require_package libudev-dev
 
 pushd $BB_ROOT || exit 1

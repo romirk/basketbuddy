@@ -6,4 +6,4 @@ services:
     volumes:
       - ./config:/config
       - ./maps:/maps
-    command: ls /bb/ros_ws/
+    command: bash /bb/scripts/start.sh

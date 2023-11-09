@@ -1,4 +1,4 @@
-BB_ROOT=/home/jetson/basketbuddy
+BB_ROOT=/bb
 BRANCH=docker
 
 pushd $BB_ROOT/ros_ws || exit 1

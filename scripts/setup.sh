@@ -1,32 +1,24 @@
 #!/bin/bash
 
-sudo apt update
+apt update && apt upgrade -y
 
-BB_ROOT=/home/jetson/basketbuddy
+BB_ROOT=/bb
 BRANCH=docker
 
-function require_package(package_name) {
-    if ! dpkg -s $package_name >/dev/null 2>&1; then
-        sudo apt-get install $package_name
-    fi
-}
-
 # check for packages
-require_package git
-require_package python3
-require_package python3-pip
-require_package libudev-dev
+apt install -y python3 python3-pip libudev-dev ros-${ROS_DISTRO}-slam-toolbox
 
-pushd $BB_ROOT || exit 1
+apt-get autoremove -y
+apt-get clean
+rm -rf /var/lib/apt/lists/*
+
+pushd $BB_ROOT/ros_ws || exit 1
 
 git pull
 git checkout $BRANCH
-git submodule update --init --recursive
 
-pushd ./ros_ws || exit 1
+source /opt/ros/humble/setup.bash
 rosdep install --from-paths src --ignore-src -r -y
 colcon build --symlink-install --cmake-args=-DCMAKE_BUILD_TYPE=Release
-popd || exit 1 # ./ros_ws
 
-popd || exit 1 # $BB_ROOT
-
+popd || exit 1 # $BB_ROOT/ros_ws

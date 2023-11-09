@@ -31,5 +31,8 @@ inline void shutdown_isr()
 {
     noInterrupts();
     BasketBuddy::robot_state = R_Shutdown;
+    digitalWrite(13, LOW); 
+    delay(2000);
+    digitalWrite(P_POWER, LOW); 
     interrupts();
 }

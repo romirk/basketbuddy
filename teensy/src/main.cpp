@@ -20,12 +20,12 @@ void setup() {
 
     // pull power relay high, this will keep the motors powered
     digitalWrite(P_POWER, HIGH);
+    attachInterrupt(digitalPinToInterrupt(P_BUTTON_STATE), shutdown_isr,
+                    FALLING);
 
     // initialize hardware
     initialize();
 
-    // attachInterrupt(digitalPinToInterrupt(P_BUTTON_STATE), shutdown_isr,
-    // RISING);
 }
 
 auto last_time = millis();

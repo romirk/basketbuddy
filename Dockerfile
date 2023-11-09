@@ -24,4 +24,6 @@ RUN cd /bb/ros_ws && bash -c ". /opt/ros/humble/setup.bash && \
     colcon build --symlink-install --cmake-args=-DCMAKE_BUILD_TYPE=Release \
     --packages-select basketbuddy"
 
-CMD ["bash", "/bb/start.sh"]
+COPY ./slam.yaml /bb/slam.yaml
+
+CMD ["bash"]

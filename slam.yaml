@@ -12,8 +12,8 @@ slam_toolbox:
     # ROS Parameters
     odom_frame: odom
     map_frame: map
-    base_frame: base_link
-    scan_topic: /scan
+    base_frame: ldlidar_base
+    scan_topic: /ldlidar_node/scan
     mode: mapping 
 
     debug_logging: false

@@ -4,12 +4,11 @@ services:
     restart: unless-stopped
     container_name: slam
     volumes:
-      - ./config:/config
       - ./maps:/maps
     devices:
       - /dev/ldlidar:/dev/ldlidar
       - /dev/ttyACM0:/dev/ttyACM0
       - /dev/ttyUSB0:/dev/ttyUSB0
-    command: bash -c "cd /bb/ros_ws/ && . install/local_setup.sh && ros2 launch basketbuddy main.launch.py"
+    command: bash -c "cd /bb/ros_ws/ && cat ../slam.yaml && . install/local_setup.sh && ros2 launch basketbuddy main.launch.py"
     network_mode: host
 

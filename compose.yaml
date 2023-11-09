@@ -6,6 +6,8 @@ services:
     volumes:
       - ./config:/config
       - ./maps:/maps
+    devices:
+      - /dev/ldlidar:/dev/ldlidar
     command: >
       ros2 launch slam_toolbox online_sync_launch.py 
         slam_params_file:=/config/slam_params.yaml

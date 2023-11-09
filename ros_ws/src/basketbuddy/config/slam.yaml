@@ -2,7 +2,7 @@ slam_toolbox:
   ros__parameters:
 
     # Plugin params
-    # solver_plugin: solver_plugins::CeresSolver
+    solver_plugin: solver_plugins::CeresSolver
     ceres_linear_solver: SPARSE_NORMAL_CHOLESKY
     ceres_preconditioner: SCHUR_JACOBI
     ceres_trust_strategy: LEVENBERG_MARQUARDT
@@ -12,8 +12,8 @@ slam_toolbox:
     # ROS Parameters
     odom_frame: odom
     map_frame: map
-    base_frame: ldlidar_link
-    scan_topic: /ldlidar_node/scan
+    base_frame: base_link
+    scan_topic: /scan
     mode: mapping 
 
     debug_logging: false

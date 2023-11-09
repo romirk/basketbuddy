@@ -6,7 +6,7 @@ RUN apt update && apt upgrade -y && \
     python3-colcon-common-extensions \
     ros-${ROS_DISTRO}-diagnostic-updater
 
-RUN rosdep init && rosdep update %
+RUN rosdep init && rosdep update
 
 RUN mkdir -p /bb/ros_ws/src && \
     cd /bb/ros_ws/src && \
@@ -19,14 +19,15 @@ RUN cd /bb/ros_ws && bash -c ". /opt/ros/humble/setup.bash && \
 
 # everything above this line is cached
 
+RUN apt install -y ros-${ROS_DISTRO}-cartographer
+
 COPY ./ros_ws/src/basketbuddy /bb/ros_ws/src/basketbuddy
 RUN cd /bb/ros_ws && bash -c ". /opt/ros/humble/setup.bash && \
     rosdep install --from-paths src --ignore-src -r -y && \
     colcon build --symlink-install --cmake-args=-DCMAKE_BUILD_TYPE=Release \
     --packages-select basketbuddy"
 
-RUN apt install -y ros-${ROS_DISTRO}-cartographer \
-    && apt-get autoremove -y && apt-get clean \
+RUN apt-get autoremove -y && apt-get clean \
     && rm -rf /var/lib/apt/lists/* 
 
 COPY ./scripts/start.sh /bb/start.sh

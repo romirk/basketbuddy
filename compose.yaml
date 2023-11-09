@@ -6,7 +6,6 @@ services:
     volumes:
       - ./maps:/maps
     devices:
-      - /dev/ldlidar:/dev/ldlidar
       - /dev/ttyACM0:/dev/ttyACM0
       - /dev/ttyUSB0:/dev/ttyUSB0
     command: bash -c "cd /bb/ros_ws/ && . install/local_setup.sh && ros2 launch basketbuddy main.launch.py"

@@ -21,10 +21,6 @@ git pull
 git checkout $BRANCH
 git submodule update --init --recursive
 
-pushd ./ros_ws/src/ldrobot-lidar-ros2/scripts || exit 1
-./create_udev_rules.sh
-popd || exit 1 # ./ros_ws/src/ldrobot-lidar-ros2/scripts
-
 pushd ./ros_ws || exit 1
 rosdep install --from-paths src --ignore-src -r -y
 colcon build --symlink-install --cmake-args=-DCMAKE_BUILD_TYPE=Release

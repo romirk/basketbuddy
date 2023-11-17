@@ -13,8 +13,8 @@
 #include <FastLED.h>
 #include <basketbuddy/basketbuddy.h>
 
-#define NUM_LEDS 8
-#define LED_TYPE WS2812B
+#define NUM_LEDS 71
+#define LED_TYPE WS2812
 #define COLOR_ORDER GRB
 #define DATA_PIN P_LED_PWM_PIN
 // #define CLK_PIN       4
@@ -25,6 +25,6 @@
 #define WAVELENGTH (NUM_LEDS * 4)
 
 void setup_led();
-void test1();
+void set_color_leds(CRGB);
 int led_loop();
 void set_turning_leds(int);

@@ -125,4 +125,5 @@ void lift_home() {
     }
 
     BasketBuddy::lift.position = 0;
+    BasketBuddy::lift.target = 0;
 }

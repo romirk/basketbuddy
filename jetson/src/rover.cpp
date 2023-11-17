@@ -88,15 +88,15 @@ void Rover::controlLoop() const {
                 break;
         }
 
-        if (!running.load()) break;
-        // read from serial
-        uint8_t serial_message[6] = {0};
-        if (read(serial_port, serial_message, 6) < 0)
-            ;  // print error message
+        // if (!running.load()) break;
+        // // read from serial
+        // uint8_t serial_message[6] = {0};
+        // if (read(serial_port, serial_message, 6) < 0)
+        //     ;  // print error message
 
-        int16_t cur = (int16_t)serial_message[1] << 8 | serial_message[2];
-        int16_t vol = (int16_t)serial_message[3] << 8 | serial_message[4];
-        printf("current: %d, voltage: %d\n", cur, vol);
+        // int16_t cur = (int16_t)serial_message[1] << 8 | serial_message[2];
+        // int16_t vol = (int16_t)serial_message[3] << 8 | serial_message[4];
+        // printf("current: %d, voltage: %d\n", cur, vol);
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 

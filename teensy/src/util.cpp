@@ -39,7 +39,7 @@ void initialize() {
         }
     }
 
-    ina260_A.begin(0x40, &Wire2);
+    // ina260_A.begin(0x40, &Wire2);
 
     setup_led();
     digitalWrite(13, HIGH);

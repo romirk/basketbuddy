@@ -73,12 +73,12 @@ bool read_and_exec() {
                 break;
         }
     }
-    auto current = (int16_t)ina260_A.readCurrent();
-    auto voltage = (int16_t)ina260_A.readBusVoltage();
+    // auto current = (int16_t)ina260_A.readCurrent();
+    // auto voltage = (int16_t)ina260_A.readBusVoltage();
 
-    // // write current and voltage to serial
-    Serial.write('I');
-    Serial.write((uint8_t *)&current, 2);
-    Serial.write((uint8_t *)&voltage, 2);
+    // // // write current and voltage to serial
+    // Serial.write('I');
+    // Serial.write((uint8_t *)&current, 2);
+    // Serial.write((uint8_t *)&voltage, 2);
     return r;
 }

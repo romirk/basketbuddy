@@ -24,19 +24,21 @@ void setup() {
                     FALLING);
 
     // initialize hardware
-    initialize();
+    // initialize();
+    setup_led();
 
 }
 
 auto last_time = millis();
 void loop() {
-    if (!Serial) initialize();
+    //if (!Serial) initialize();
 
     if (lift_sync_step()) {
         delayMicroseconds(STEPPER_STEP_DELAY);
         return;
     }
 
+    led_loop();
     read_and_exec();
 
     // delay(last_time + CLOCK_PERIOD - millis());

@@ -63,6 +63,9 @@ inline void setPinModes() {
     // arduino
     pinMode(P_ARDUINO_TX, OUTPUT);
     pinMode(P_ARDUINO_RX, INPUT);
+
+    // led
+    pinMode(P_LED_PWM_PIN, OUTPUT);
 }
 
 /**

@@ -13,7 +13,7 @@
 #include <basketbuddy/tasks.h>
 #include <basketbuddy/util.h>
 #include <basketbuddy/lifting.h>
-// #include <basketbuddy/led.h>
+#include <basketbuddy/led.h>
 
 void initialize();
 void setup();

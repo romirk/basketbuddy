@@ -17,10 +17,12 @@ void initialize() {
     BasketBuddy::estop = ES_Disabled;
     interrupts();
 
-    while(digitalRead(P_KILLSWITCH) == HIGH) {
-        // wait for killswitch to be released
-        delay(100);
-    }
+    // while(digitalRead(P_KILLSWITCH) == HIGH) {
+    //     // wait for killswitch to be released
+    //     delay(1000);
+    //     digitalWrite(13, !digitalRead(13));
+    // }
+    // digitalWrite(13, LOW);
 
     // initialize hardware
 

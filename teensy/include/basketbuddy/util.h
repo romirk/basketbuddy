@@ -22,7 +22,7 @@
 inline void setPinModes() {
     // power
     pinMode(P_POWER, OUTPUT);
-    pinMode(P_KILLSWITCH, INPUT_PULLUP);
+    pinMode(P_KILLSWITCH, INPUT_DISABLE);
     pinMode(P_BUTTON_STATE, INPUT_PULLUP);
 
     // motors

@@ -16,7 +16,7 @@ void setup() {
     setPinModes();
 
     // enable killswitch interrupt before powering on
-    attachInterrupt(digitalPinToInterrupt(P_KILLSWITCH), estop_isr, CHANGE);
+    // attachInterrupt(digitalPinToInterrupt(P_KILLSWITCH), estop_isr, CHANGE);
 
     // pull power relay high, this will keep the motors powered
     digitalWrite(P_POWER, HIGH);

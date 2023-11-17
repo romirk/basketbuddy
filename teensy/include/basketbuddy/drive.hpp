@@ -3,7 +3,7 @@
 #define AXLE_LENGTH 0.46985  // m
 #define WHEEL_RADIUS 0.0508  // m
 #define LINEAR_MAX 1         // m/s
-#define ANGULAR_MAX 2        // rad/s
+#define ANGULAR_MAX 5        // rad/s
 
 constexpr auto HALF_AXLE = AXLE_LENGTH / 2;
 constexpr auto V_MAX = LINEAR_MAX / WHEEL_RADIUS;

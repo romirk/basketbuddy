@@ -3,10 +3,10 @@ import socket
 
 from pydualsense import *
 
-parser = argparse.ArgumentParser(description='PS5 controller test')
-parser.add_argument('--ip', type=str, default='192.168.1.100', help='UDP IP address')
-parser.add_argument('--port', type=int, default=5000, help='UDP port')
-parser.add_argument('--deadzone', type=int, default=10, help='Joystick deadzone')
+parser = argparse.ArgumentParser(description="PS5 controller test")
+parser.add_argument("--ip", type=str, default="192.168.1.100", help="UDP IP address")
+parser.add_argument("--port", type=int, default=5000, help="UDP port")
+parser.add_argument("--deadzone", type=int, default=10, help="Joystick deadzone")
 args = parser.parse_args()
 
 UDP_IP = args.ip
@@ -17,7 +17,6 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 
 def send_cmd(cmd):
-    print(cmd)
     sock.sendto(cmd, (UDP_IP, UDP_PORT))
 
 
@@ -25,44 +24,45 @@ def cmd_vel(linear, angular):
     if linear < -100 or linear > 100 or angular < -100 or angular > 100:
         print("Error: velocity must be between -100 and 100")
         exit(1)
-    linear += 100
-    angular += 100
-    cmd = bytes([ord('V'), linear, angular])
+    cmd = bytes([ord("V"), linear + 100, angular + 100])
+    # print(f"{linear:04d}, {angular:04d}", end="\r")
+    print(f"[{' ' * ((linear + 100) // 10)}#{' ' * ((100 - linear) // 10)}]" +
+            f"[{' ' * ((angular + 100) // 10)}#{' ' * ((100 - angular) // 10)}]", end="\r")
     send_cmd(cmd)
 
 
 def stop():
-    cmd = bytes([ord('S'), 0, 0])
+    cmd = bytes([ord("S"), 0, 0])
     send_cmd(cmd)
 
 
 def brake(state):
     if state:
-        cmd = bytes([ord('B'), 1, 1])
+        cmd = bytes([ord("B"), 1, 1])
         send_cmd(cmd)
 
 
 def led_toggle(state):
     if state:
-        cmd = bytes([ord('L'), 3, 3])
+        cmd = bytes([ord("L"), 3, 3])
         send_cmd(cmd)
 
 
 def lift_up(state):
     if state:
-        cmd = bytes([ord('L'), ord('U')])
+        cmd = bytes([ord("L"), ord("U")])
         send_cmd(cmd)
 
 
 def lift_down(state):
     if state:
-        cmd = bytes([ord('L'), ord('D')])
+        cmd = bytes([ord("L"), ord("D")])
         send_cmd(cmd)
 
 
 def lift_stop(state):
     if state:
-        cmd = bytes([ord('L'), ord('S')])
+        cmd = bytes([ord("L"), ord("S")])
         send_cmd(cmd)
 
 
@@ -99,7 +99,7 @@ def angular_stick(x, y):
 # def gyro_changed(pitch, yaw, roll):
 #     print(f'{pitch}, {yaw}, {roll}')
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # create dualsense
     dualsense = pydualsense()
     # find device and initialize

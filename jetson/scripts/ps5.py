@@ -17,7 +17,6 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 
 def send_cmd(cmd):
-    print(cmd)
     sock.sendto(cmd, (UDP_IP, UDP_PORT))
 
 
@@ -25,9 +24,10 @@ def cmd_vel(linear, angular):
     if linear < -100 or linear > 100 or angular < -100 or angular > 100:
         print("Error: velocity must be between -100 and 100")
         exit(1)
-    linear += 100
-    angular += 100
-    cmd = bytes([ord("V"), linear, angular])
+    cmd = bytes([ord("V"), linear + 100, angular + 100])
+    # print(f"{linear:04d}, {angular:04d}", end="\r")
+    # print(f"[{' ' * ((linear + 100) // 10)}#{' ' * ((100 - linear) // 10)}]" +
+            # f"[{' ' * ((angular + 100) // 10)}#{' ' * ((100 - angular) // 10)}]", end="\r")
     send_cmd(cmd)
 
 

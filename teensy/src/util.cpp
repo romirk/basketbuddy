@@ -20,7 +20,21 @@ void initialize() {
     // initialize hardware
 
     lift_home();
+    // steppers_sleep();
+
+    steppers_enable();
+
+    BasketBuddy::lift.target = LIFT_UP_TARGET;
+    while (lift_sync_step())
+    {
+        delayMicroseconds(STEPPER_STEP_DELAY);
+    }
+
+    lift_home();
+
     steppers_sleep();
+    
+
 
     // initialize serial line to Jetson
 

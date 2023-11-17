@@ -26,6 +26,8 @@ void setup() {
     // initialize hardware
     initialize();
 
+    attachInterrupt(digitalPinToInterrupt(P_BUTTON_STATE), shutdown_isr,
+                    RISING);
 }
 
 auto last_time = millis();

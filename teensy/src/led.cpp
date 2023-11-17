@@ -20,7 +20,7 @@ extern const TProgmemPalette16 myRedWhiteBluePalette_p PROGMEM;
 void setup_led() {
     delay(1000);  // power-up safety delay
     FastLED.addLeds<LED_TYPE, P_LED_PWM_PIN, COLOR_ORDER>(leds, NUM_LEDS);
-        //.setCorrection(TypicalLEDStrip);
+    //.setCorrection(TypicalLEDStrip);
     FastLED.setBrightness(BRIGHTNESS);
 
     currentPalette = RainbowColors_p;
@@ -54,28 +54,43 @@ void set_turning_leds(int direction) {
 int led_loop() {
     if (BasketBuddy::estop == EstopState::ES_Enabled) {
         set_color_leds(CRGB::Red);
-    } else if (BasketBuddy::robot_state == RobotState::R_Autonomous) {
-        set_color_leds(CRGB::Green);
-    } else if (BasketBuddy::robot_state == RobotState::R_Manual) {
-        set_color_leds(CRGB::LightCyan);
-    } else if (BasketBuddy::robot_state == RobotState::R_Ready) {
-        set_color_leds(CRGB::LightGreen);
-    } else if (BasketBuddy::robot_state == RobotState::R_Startup) {
-        set_color_leds(CRGB::Blue);
-    } else if (BasketBuddy::robot_state == RobotState::R_Shutdown) {
-        set_color_leds(CRGB::Yellow);
-    } else if (BasketBuddy::robot_state == RobotState::R_Estop) {
-        set_color_leds(CRGB::Red);
-    } else if (BasketBuddy::robot_state == RobotState::R_Error) {
-        set_color_leds(CRGB::Pink);
-    } else if (BasketBuddy::robot_state == RobotState::R_Alignment) {
-        set_color_leds(CRGB::Orange);
-    } else if (BasketBuddy::robot_state == RobotState::R_Lift) {
-        set_color_leds(CRGB::Orange);
+        goto end;
     }
-    else {
-        set_color_leds(CRGB::White);
+
+    switch (BasketBuddy::robot_state) {
+        case RobotState::R_Autonomous:
+            set_color_leds(CRGB::Green);
+            break;
+        case RobotState::R_Manual:
+            set_color_leds(CRGB::LightCyan);
+            break;
+        case RobotState::R_Ready:
+            set_color_leds(CRGB::LightGreen);
+            break;
+        case RobotState::R_Startup:
+            set_color_leds(CRGB::Blue);
+            break;
+        case RobotState::R_Shutdown:
+            set_color_leds(CRGB::Yellow);
+            break;
+        case RobotState::R_Estop:
+            set_color_leds(CRGB::Red);
+            break;
+        case RobotState::R_Error:
+            set_color_leds(CRGB::Pink);
+            break;
+        case RobotState::R_Alignment:
+            set_color_leds(CRGB::Orange);
+            break;
+        case RobotState::R_Lift:
+            set_color_leds(CRGB::Orange);
+            break;
+        default:
+            set_color_leds(CRGB::White);
+            break;
     }
+
+end:
     FastLED.show();
     return 0;
 }

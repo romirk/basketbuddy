@@ -24,11 +24,9 @@ void setup() {
                     FALLING);
 
     // initialize hardware
-    // initialize();
-    setup_led();
-
-    attachInterrupt(digitalPinToInterrupt(P_BUTTON_STATE), shutdown_isr,
-                    RISING);
+    initialize();
+    
+    attachInterrupt(digitalPinToInterrupt(P_BUTTON_STATE), shutdown_isr, RISING);
 }
 
 auto last_time = millis();

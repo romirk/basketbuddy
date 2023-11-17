@@ -24,8 +24,8 @@ void initialize() {
 
     // initialize serial line to Jetson
 
+    Serial.setTimeout(SERIAL_TIMEOUT);
     if (!Serial) {
-        Serial.setTimeout(SERIAL_TIMEOUT);
         Serial.begin(115200);
         while (!Serial) {
             // wait for serial to initialize
@@ -33,6 +33,8 @@ void initialize() {
     }
 
     ina260_A.begin(0x40, &Wire2);
+
+    setup_led();
     digitalWrite(13, HIGH);
 
     noInterrupts();

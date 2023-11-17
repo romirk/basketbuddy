@@ -56,6 +56,12 @@ void Rover::controlLoop() const {
         if (recv(udp_sock, message, 3, 0) < 0) continue;
 
         switch (message[0]) {
+            case 'E':
+                if (write(serial_port, message, 1) < 0)
+                    ;  // print error message
+                printf("estop\n");
+                running.store(false);
+                break;
             case 'V':
                 printf("velocity: %u %u\n", message[1], message[2]);
                 if (write(serial_port, message, 3) < 0)
@@ -82,6 +88,7 @@ void Rover::controlLoop() const {
                 break;
         }
 
+        if (!running.load()) break;
         // read from serial
         uint8_t serial_message[6] = {0};
         if (read(serial_port, serial_message, 6) < 0)

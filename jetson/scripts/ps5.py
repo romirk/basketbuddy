@@ -19,15 +19,27 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 def send_cmd(cmd):
     sock.sendto(cmd, (UDP_IP, UDP_PORT))
 
-
+pz = False
 def cmd_vel(linear, angular):
+    global pz
     if linear < -100 or linear > 100 or angular < -100 or angular > 100:
         print("Error: velocity must be between -100 and 100")
         exit(1)
+    
+    if abs(linear) < DEADZONE:
+        linear = 0
+    if abs(angular) < DEADZONE:
+        angular = 0
+    if linear == 0 and angular == 0:
+        if pz:
+            return
+        pz = True
+    else:
+        pz = False
     cmd = bytes([ord("V"), linear + 100, angular + 100])
     # print(f"{linear:04d}, {angular:04d}", end="\r")
-    # print(f"[{' ' * ((linear + 100) // 10)}#{' ' * ((100 - linear) // 10)}]" +
-            # f"[{' ' * ((angular + 100) // 10)}#{' ' * ((100 - angular) // 10)}]", end="\r")
+    print(f"[{' ' * ((linear + 100) // 10)}#{' ' * ((100 - linear) // 10)}]" +
+            f"[{' ' * ((angular + 100) // 10)}#{' ' * ((100 - angular) // 10)}]", end="\r")
     send_cmd(cmd)
 
 
@@ -63,6 +75,11 @@ def lift_down(state):
 def lift_stop(state):
     if state:
         cmd = bytes([ord("L"), ord("S")])
+        send_cmd(cmd)
+
+def estop(state):
+    if state:
+        cmd = bytes([ord("E"), 1, 1])
         send_cmd(cmd)
 
 
@@ -102,6 +119,7 @@ if __name__ == "__main__":
     # add events handler functions
     dualsense.left_joystick_changed += vel_stick
     dualsense.square_pressed += brake
+    dualsense.circle_pressed += estop
     dualsense.dpad_up += lift_up
     dualsense.dpad_down += lift_down
     dualsense.dpad_left += lift_stop

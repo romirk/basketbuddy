@@ -36,13 +36,10 @@ void BasketBuddy::emergency_stop() {
     noInterrupts();
     estop = ES_Enabled;
     robot_state = R_Estop;
+    BasketBuddy::velocity = {0};
     interrupts();
 
     stop();
-
-    // send(S_Estop);
-    Serial.send_now();
-    Serial.flush();
-    // blocking_wait_for(S_Startup, -1);
+    delay(3000);
     initialize();
 }

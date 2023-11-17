@@ -39,7 +39,11 @@ bool read_and_exec() {
                     map(BasketBuddy::velocity.linear, 0, 200, -100, 100);
                 BasketBuddy::velocity.angular =
                     map(BasketBuddy::velocity.angular, 0, 200, -100, 100);
-                cmd_vel();
+
+                if (BasketBuddy::velocity.linear == 0 && BasketBuddy::velocity.angular == 0)
+                    brake();
+                else
+                    cmd_vel();
                 break;
             case 'S':
                 stop();

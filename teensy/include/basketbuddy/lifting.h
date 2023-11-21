@@ -8,8 +8,6 @@
 
 #include <basketbuddy/basketbuddy.h>
 
-extern IntervalTimer stepper_timer;
-
 void steppers_sleep();
 void steppers_enable();
 

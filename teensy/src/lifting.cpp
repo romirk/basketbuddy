@@ -11,8 +11,6 @@
 
 #include <basketbuddy/lifting.h>
 
-IntervalTimer stepper_timer;
-
 // helper functions
 void step(int motor_pin, bool direction) {
     digitalWrite(motor_pin == P_STEPPER_RIGHT_STEP ? P_STEPPER_RIGHT_DIR

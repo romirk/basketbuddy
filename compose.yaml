@@ -5,9 +5,9 @@ services:
     container_name: slam
     volumes:
       - ./maps:/maps
-    devices:
-      - /dev/ttyACM0:/dev/ttyACM0
-      - /dev/ttyUSB0:/dev/ttyUSB0
-    command: bash -c "cd /bb/ros_ws/ && . install/local_setup.sh && ros2 launch basketbuddy main.launch.py"
+    # devices:
+      # - /dev/ttyACM0:/dev/ttyACM0
+      # - /dev/ttyUSB0:/dev/ttyUSB0
+    command: bash -c "cd /bb && . install/local_setup.sh && ros2 launch basketbuddy main.launch.py"
     network_mode: host
 

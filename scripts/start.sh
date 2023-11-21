@@ -1,9 +1,6 @@
 BB_ROOT=/bb
-BRANCH=docker
 
-pushd $BB_ROOT/ros_ws || exit 1
-
-ls -la
+pushd $BB_ROOT || exit 1
 
 source /opt/ros/humble/setup.bash
 source ./install/local_setup.bash

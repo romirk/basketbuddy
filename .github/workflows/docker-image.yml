@@ -33,3 +33,5 @@ jobs:
           tags: romir/basketbuddy:latest
           platforms: amd64, aarch64
           context: .
+          file: ./Dockerfile
+

@@ -32,3 +32,4 @@ jobs:
           push: true
           tags: romir/basketbuddy:latest
           platforms: amd64, aarch64
+          context: .

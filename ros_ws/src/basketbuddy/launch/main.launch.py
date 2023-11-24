@@ -9,7 +9,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 from ament_index_python.packages import get_package_share_directory
 
-BB_SHARE = "/bb/install/basketbuddy/share/basketbuddy"
+BB_SHARE = get_package_share_directory("basketbuddy")
 
 def generate_launch_description():
 
@@ -26,25 +26,25 @@ def generate_launch_description():
         # remappings=[("/ldlidar_node/scan", "/scan")]
     )
 
-    lidar_launch = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([
-               os.path.join(get_package_share_directory("ldlidar_node"), "launch", "ldlidar_with_mgr.launch.py")
-            ])
-        )
+    # lidar_launch = IncludeLaunchDescription(
+    #         PythonLaunchDescriptionSource([
+    #            os.path.join(get_package_share_directory("ldlidar_node"), "launch", "ldlidar_with_mgr.launch.py")
+    #         ])
+    #     )
     
     ld = LaunchDescription()
 
-    # ld.add_action(Node(
-    #     package="tf2_ros",
-    #     executable="static_transform_publisher",
-    #     arguments="--frame-id odom --child-frame-id ldlidar_base".split(),
-    # ))
-    # ld.add_action(Node(
-    #     package="tf2_ros",
-    #     executable="static_transform_publisher",
-    #     arguments="0 0 0 0 0 0 map odom".split(),
-    # ))
-    ld.add_action(lidar_launch)
+    ld.add_action(Node(
+        package="tf2_ros",
+        executable="static_transform_publisher",
+        arguments="--frame-id odom --child-frame-id base_link".split(),
+    ))
+    ld.add_action(Node(
+        package="tf2_ros",
+        executable="static_transform_publisher",
+        arguments="0 0 0 0 0 0 map odom".split(),
+    ))
+    # ld.add_action(lidar_launch)
     ld.add_action(og_node)
     ld.add_action(cartographer_node)
 

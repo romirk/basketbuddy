@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <sdf version="1.5">
-    <model name="basketbuddy_sim">
+    <model name="basketbuddy">
         <static>false</static>
 
         <!-- ****************** ROBOT BASE FOOTPRINT ***************************  -->
@@ -23,7 +23,7 @@
                 <pose>0 0 -0.05 1.5707963267949 0 3.141592654</pose>
                 <geometry>
                     <mesh>
-                        <uri>model://basketbuddy_sim/meshes/robot_base.stl</uri>
+                        <uri>model://basketbuddy_description/meshes/robot_base.stl</uri>
                         <scale>1.0 1.0 1.0</scale>
                     </mesh>
                 </geometry>

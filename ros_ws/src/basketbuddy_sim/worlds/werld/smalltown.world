@@ -4078,7 +4078,7 @@
       <!-- Set the location where we want to spawn the robot -->
       <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
       <!-- basketbuddy_sim -->
-      <uri>model://basketbuddy_sim_description</uri>
+      <uri>model://basketbuddy_description</uri>
     </include>
   </world>
 </sdf>

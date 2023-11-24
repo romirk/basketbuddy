@@ -22,53 +22,45 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
+LIDAR_SHARE = get_package_share_directory("ldlidar_node")
+BB_SHARE = get_package_share_directory("basketbuddy")
+
 
 def generate_launch_description():
-
     # Set LOG format
-    os.environ['RCUTILS_CONSOLE_OUTPUT_FORMAT'] = '{time} [{severity}] ({name}) {message}'
-    os.environ['RCUTILS_COLORIZED_OUTPUT'] = '1'
+    os.environ[
+        "RCUTILS_CONSOLE_OUTPUT_FORMAT"
+    ] = "{time} [{severity}] ({name}) {message}"
+    os.environ["RCUTILS_COLORIZED_OUTPUT"] = "1"
 
-    node_name = LaunchConfiguration('node_name')
+    node_name = LaunchConfiguration("node_name")
 
     # Lifecycle manager configuration file
-    lc_mgr_config_path = os.path.join(
-        get_package_share_directory('ldlidar_node'),
-        'params',
-        'lifecycle_mgr.yaml'
-    )
+    lc_mgr_config_path = os.path.join(LIDAR_SHARE, "params", "lifecycle_mgr.yaml")
 
     # Launch arguments
     declare_node_name_cmd = DeclareLaunchArgument(
-        'node_name',
-        default_value='laser',
-        description='Name of the node'
+        "node_name", default_value="laser", description="Name of the node"
     )
 
     # Lifecycle manager node
     lc_mgr_node = Node(
-        package='nav2_lifecycle_manager',
-        executable='lifecycle_manager',
-        name='lifecycle_manager',
-        output='screen',
+        package="nav2_lifecycle_manager",
+        executable="lifecycle_manager",
+        name="lifecycle_manager",
+        output="screen",
         parameters=[
             # YAML files
             lc_mgr_config_path  # Parameters
-        ]
+        ],
     )
 
     # Include LDLidar launch
     ldlidar_launch = IncludeLaunchDescription(
-        launch_description_source=PythonLaunchDescriptionSource([
-            get_package_share_directory('ldlidar_node'),
-            '/launch/ldlidar.launch.py'
-        ]),
-        launch_arguments={
-            'node_name': node_name
-        }.items(),
-        remappings=[
-            ('scan', '/scan')
-        ]
+        launch_description_source=PythonLaunchDescriptionSource(
+            [BB_SHARE, "/launch/ldlidar.launch.py"]
+        ),
+        launch_arguments={"node_name": node_name}.items(),
     )
 
     # Define LaunchDescription variable

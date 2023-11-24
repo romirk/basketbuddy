@@ -1,4 +1,4 @@
-FROM ros:humble-ros-core
+FROM ros:humble-ros-perception
 
 WORKDIR /bb
 
@@ -8,7 +8,9 @@ apt update
 apt install -y python3 python3-pip python3-rosdep libudev-dev git \
     ros-${ROS_DISTRO}-slam-toolbox python3-colcon-common-extensions \
     ros-${ROS_DISTRO}-diagnostic-updater ros-${ROS_DISTRO}-tf2-ros \
-    ros-${ROS_DISTRO}-tf2-sensor-msgs ros-${ROS_DISTRO}-tf2-geometry-msgs
+    ros-${ROS_DISTRO}-tf2-sensor-msgs ros-${ROS_DISTRO}-tf2-geometry-msgs \
+    libopencv-dev ros-${ROS_DISTRO}-image-transport \
+    ros-${ROS_DISTRO}-image-transport-plugins 
 apt upgrade -y
 
 rosdep init && rosdep update --as-root apt:false --rosdistro=${ROS_DISTRO}

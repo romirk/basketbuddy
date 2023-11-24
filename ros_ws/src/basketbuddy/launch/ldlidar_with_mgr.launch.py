@@ -36,7 +36,7 @@ def generate_launch_description():
     node_name = LaunchConfiguration("node_name")
 
     # Lifecycle manager configuration file
-    lc_mgr_config_path = os.path.join(LIDAR_SHARE, "params", "lifecycle_mgr.yaml")
+    lc_mgr_config_path = os.path.join(BB_SHARE, "params", "lifecycle_mgr.yaml")
 
     # Launch arguments
     declare_node_name_cmd = DeclareLaunchArgument(

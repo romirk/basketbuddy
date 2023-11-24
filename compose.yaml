@@ -1,18 +1,18 @@
 services:
+  lidar:
+    extends:
+      service: common
+      file: common.yaml    
+    container_name: lidar
+    volumes:
+      - ./maps:/maps
+    command: bash -c ". /bb/install/local_setup.sh && ros2 launch ldrobot-lidar-ros2 ldlidar_with_mgr.launch.py"
+  
   slam:
-    image: romir/basketbuddy
-    restart: unless-stopped
+    extends:
+      service: common
+      file: common.yaml    
     container_name: slam
     volumes:
       - ./maps:/maps
-    # devices:
-      # - /dev/ttyACM0:/dev/ttyACM0
-      # - /dev/ttyUSB0:/dev/ttyUSB0
     command: bash -c ". /bb/install/local_setup.sh && ros2 launch basketbuddy main.launch.py"
-    network_mode: host
-    ipc: host
-    environment:
-      - DISPLAY
-      - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=all
-

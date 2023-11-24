@@ -13,24 +13,26 @@ BB_SHARE = get_package_share_directory("basketbuddy")
 
 def generate_launch_description():
 
-    og_node = Node(
-        package="cartographer_ros",
-        executable="cartographer_occupancy_grid_node",
-        arguments="--resolution 0.05 --publish_period_sec 1.0".split(),
-        # remappings=[("/ldlidar_node/scan", "/scan")]
-    )
-    cartographer_node = Node(
-        package="cartographer_ros",
-        executable="cartographer_node",
-        arguments=f"--configuration_directory {BB_SHARE}/config --configuration_basename lidar_2d.lua".split(),
-        # remappings=[("/ldlidar_node/scan", "/scan")]
+    # og_node = Node(
+    #     package="cartographer_ros",
+    #     executable="cartographer_occupancy_grid_node",
+    #     arguments="--resolution 0.05 --publish_period_sec 1.0".split(),
+    #     # remappings=[("/ldlidar_node/scan", "/scan")]
+    # )
+    # cartographer_node = Node(
+    #     package="cartographer_ros",
+    #     executable="cartographer_node",
+    #     arguments=f"--configuration_directory {BB_SHARE}/config --configuration_basename lidar_2d.lua".split(),
+    #     # remappings=[("/ldlidar_node/scan", "/scan")]
+    # )
+
+    # slam toolbox
+    slam_toolbox_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(get_package_share_directory("slam_toolbox"), "launch", "online_async_launch.launch.py")
+        )
     )
 
-    # lidar_launch = IncludeLaunchDescription(
-    #         PythonLaunchDescriptionSource([
-    #            os.path.join(get_package_share_directory("ldlidar_node"), "launch", "ldlidar_with_mgr.launch.py")
-    #         ])
-    #     )
     
     ld = LaunchDescription()
 
@@ -39,13 +41,6 @@ def generate_launch_description():
         executable="static_transform_publisher",
         arguments="--frame-id odom --child-frame-id base_link".split(),
     ))
-    ld.add_action(Node(
-        package="tf2_ros",
-        executable="static_transform_publisher",
-        arguments="0 0 0 0 0 0 map odom".split(),
-    ))
-    # ld.add_action(lidar_launch)
-    ld.add_action(og_node)
-    ld.add_action(cartographer_node)
+    ld.add_action(slam_toolbox_launch)
 
     return ld

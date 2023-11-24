@@ -34,7 +34,7 @@ colcon build --cmake-args=-DCMAKE_BUILD_TYPE=Release --install-base \
     /bb/install --packages-select basketbuddy --symlink-install
 EOF
 
-COPY ./scripts/start.sh ./lidar_2d.lua ./
+COPY ./scripts/start.sh .
 
 RUN <<EOF
 apt remove -y python3-pip python3-rosdep \

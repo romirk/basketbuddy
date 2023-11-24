@@ -21,6 +21,7 @@ from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node, LifecycleNode
 
+BB_SHARE = get_package_share_directory('basketbuddy')
 
 def generate_launch_description():
 
@@ -32,7 +33,7 @@ def generate_launch_description():
 
     # Lidar node configuration file
     lidar_config_path = os.path.join(
-        get_package_share_directory('ldlidar_node'),
+        BB_SHARE,
         'params',
         'ldlidar.yaml'
     )
@@ -60,7 +61,7 @@ def generate_launch_description():
     # URDF path
     urdf_file_name = 'ldlidar_descr.urdf.xml'
     urdf = os.path.join(
-        get_package_share_directory('ldlidar_node'),
+        BB_SHARE,
         'urdf',
         urdf_file_name)
     with open(urdf, 'r') as infp:

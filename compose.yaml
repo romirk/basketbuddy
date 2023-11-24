@@ -6,7 +6,7 @@ services:
     container_name: lidar
     volumes:
       - ./maps:/maps
-    command: bash -c ". /bb/install/local_setup.sh && ros2 launch ldlidar_node ldlidar_with_mgr.launch.py --ros-args -r __ns:="
+    command: bash -c ". /bb/install/local_setup.sh && ros2 launch basketbuddy ldlidar_with_mgr.launch.py"
   
   slam:
     extends:

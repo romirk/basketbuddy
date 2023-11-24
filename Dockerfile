@@ -5,11 +5,11 @@ WORKDIR /bb
 RUN bash <<EOF
 source /opt/ros/humble/setup.bash
 apt update
-apt upgrade -y
 apt install -y python3 python3-pip python3-rosdep libudev-dev git \
-    ros-${ROS_DISTRO}-cartographer python3-colcon-common-extensions \
+    ros-${ROS_DISTRO}-slam-toolbox python3-colcon-common-extensions \
     ros-${ROS_DISTRO}-diagnostic-updater ros-${ROS_DISTRO}-tf2-ros \
-    ros-${ROS_DISTRO}-cartographer-ros
+    ros-${ROS_DISTRO}-tf2-sensor-msgs ros-${ROS_DISTRO}-tf2-geometry-msgs
+apt upgrade -y
 
 rosdep init && rosdep update --as-root apt:false --rosdistro=${ROS_DISTRO}
 

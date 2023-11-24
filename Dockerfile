@@ -10,7 +10,8 @@ apt install -y python3 python3-pip python3-rosdep libudev-dev git \
     ros-${ROS_DISTRO}-diagnostic-updater ros-${ROS_DISTRO}-tf2-ros \
     ros-${ROS_DISTRO}-tf2-sensor-msgs ros-${ROS_DISTRO}-tf2-geometry-msgs \
     libopencv-dev ros-${ROS_DISTRO}-image-transport \
-    ros-${ROS_DISTRO}-image-transport-plugins 
+    ros-${ROS_DISTRO}-image-transport-plugins ros-${ROS_DISTRO}-navigation2 \
+    ros-${ROS_DISTRO}-nav2-bringup ros-${ROS_DISTRO}-nav2-amcl
 apt upgrade -y
 
 rosdep init && rosdep update --as-root apt:false --rosdistro=${ROS_DISTRO}

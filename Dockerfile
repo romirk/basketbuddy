@@ -1,4 +1,4 @@
-FROM ros:humble-ros-perception
+FROM ros:humble-perception
 
 WORKDIR /bb
 

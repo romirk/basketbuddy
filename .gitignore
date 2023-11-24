@@ -5,3 +5,4 @@ log/
 .vscode/
 .idea/
 cmake-build-debug/
+ros_ws/src/basketbuddy_sim/meshes/BasketBuddy_SHELLED.STL

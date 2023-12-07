@@ -1,4 +1,4 @@
-FROM ros:humble-perception
+FROM ros:iron-perception
 
 WORKDIR /bb
 
@@ -17,7 +17,7 @@ apt upgrade -y
 rosdep init && rosdep update --as-root apt:false --rosdistro=${ROS_DISTRO}
 
 mkdir src && cd src
-git clone https://github.com/Myzhar/ldrobot-lidar-ros2.git
+git clone https://github.com/romirk/ldrobot-lidar-ros2.git
 cd ..
 
 

@@ -3,7 +3,8 @@ FROM ros:iron-perception
 WORKDIR /bb
 
 RUN bash <<EOF
-source /opt/ros/humble/setup.bash
+source /opt/ros/${ROS_DISTRO}/setup.bash
+
 apt update
 apt install -y python3 python3-pip python3-rosdep libudev-dev git \
     ros-${ROS_DISTRO}-slam-toolbox python3-colcon-common-extensions \
@@ -20,8 +21,6 @@ mkdir src && cd src
 git clone https://github.com/romirk/ldrobot-lidar-ros2.git
 cd ..
 
-
-source /opt/ros/${ROS_DISTRO}/setup.bash
 
 rosdep install --from-paths src --ignore-src -r -y
 colcon build --cmake-args=-DCMAKE_BUILD_TYPE=Release --install-base \

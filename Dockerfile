@@ -21,6 +21,8 @@ git clone https://github.com/romirk/ldrobot-lidar-ros2.git
 cd ..
 
 
+source /opt/ros/${ROS_DISTRO}/setup.bash
+
 rosdep install --from-paths src --ignore-src -r -y
 colcon build --cmake-args=-DCMAKE_BUILD_TYPE=Release --install-base \
     /bb/install --symlink-install
@@ -31,7 +33,8 @@ EOF
 COPY ./ros_ws/src/basketbuddy src/basketbuddy/
 
 RUN bash <<EOF
-source /opt/ros/humble/setup.bash
+source /opt/ros/${ROS_DISTRO}/setup.bash
+
 rosdep install --from-path src/basketbuddy --ignore-src -r -y
 colcon build --cmake-args=-DCMAKE_BUILD_TYPE=Release --install-base \
     /bb/install --packages-select basketbuddy --symlink-install

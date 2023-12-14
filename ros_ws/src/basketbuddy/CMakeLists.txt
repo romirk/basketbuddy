@@ -25,7 +25,7 @@ endif()
 
 # Install share files
 install(DIRECTORY
-  launch config params urdf
+  launch params urdf
   DESTINATION share/${PROJECT_NAME}
 )
 

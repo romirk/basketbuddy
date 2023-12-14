@@ -2,17 +2,15 @@ services:
   lidar:
     extends:
       service: common
-      file: common.yaml    
+      file: common.yaml
     container_name: lidar
-    volumes:
-      - ./maps:/maps
     command: bash -c ". /bb/install/local_setup.sh && ros2 launch basketbuddy ldlidar_with_mgr.launch.py"
-  
+
   slam:
     extends:
       service: common
-      file: common.yaml    
+      file: common.yaml
     container_name: slam
     volumes:
       - ./maps:/maps
-    command: bash -c ". /bb/install/local_setup.sh && ros2 launch slam_toolbox online_async_launch.py /scan:=/ldlidar_node/scan"
+    command: bash -c ". /bb/install/local_setup.sh && ros2 launch basketbuddy main.launch.py"

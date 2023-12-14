@@ -18,8 +18,6 @@ colcon build --cmake-args=-DCMAKE_BUILD_TYPE=Release --install-base \
     /bb/install --packages-select basketbuddy --symlink-install
 EOF
 
-COPY ./scripts/start.sh .
-
 RUN <<EOF
 apt remove -y python3-pip python3-rosdep \
     python3-colcon-common-extensions git
@@ -28,5 +26,7 @@ apt clean -y
 rm -rf /var/lib/apt/lists/* /bb/ros_ws/log /etc/ros/rosdep \
     /bb/ros_ws/src /bb/ros_ws/build
 EOF
+
+COPY ./scripts/start.sh .
 
 CMD ["bash", "/bb/start.sh"]

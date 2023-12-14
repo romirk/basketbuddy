@@ -22,7 +22,7 @@ def generate_launch_description():
     cartographer_node = Node(
         package="cartographer_ros",
         executable="cartographer_node",
-        arguments=f"--configuration_directory {BB_SHARE}/config --configuration_basename lidar_2d.lua".split(),
+        arguments=f"--configuration_directory /config --configuration_basename lidar_2d.lua".split(),
         # remappings=[("/ldlidar_node/scan", "/scan")]
     )
 
@@ -36,11 +36,15 @@ def generate_launch_description():
     
     ld = LaunchDescription()
 
-    ld.add_action(Node(
-        package="tf2_ros",
-        executable="static_transform_publisher",
-        arguments="--frame-id odom --child-frame-id base_link".split(),
-    ))
-    ld.add_action(slam_toolbox_launch)
+    # ld.add_action(Node(
+    #     package="tf2_ros",
+    #     executable="static_transform_publisher",
+    #     arguments="--frame-id odom --child-frame-id base_link".split(),
+    # ))
+    # ld.add_action(slam_toolbox_launch)
+
+    ld.add_action(cartographer_node)
+    ld.add_action(og_node)
+
 
     return ld

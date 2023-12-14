@@ -11,3 +11,5 @@ services:
     devices:
       - /dev/ttyACM0:/dev/ttyACM0
       - /dev/ttyUSB0:/dev/ttyUSB0
+    volumes:
+      - ./config:/config

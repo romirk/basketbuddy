@@ -13,25 +13,25 @@ BB_SHARE = get_package_share_directory("basketbuddy")
 
 def generate_launch_description():
 
-    # og_node = Node(
-    #     package="cartographer_ros",
-    #     executable="cartographer_occupancy_grid_node",
-    #     arguments="--resolution 0.05 --publish_period_sec 1.0".split(),
-    #     # remappings=[("/ldlidar_node/scan", "/scan")]
-    # )
-    # cartographer_node = Node(
-    #     package="cartographer_ros",
-    #     executable="cartographer_node",
-    #     arguments=f"--configuration_directory {BB_SHARE}/config --configuration_basename lidar_2d.lua".split(),
-    #     # remappings=[("/ldlidar_node/scan", "/scan")]
-    # )
+    og_node = Node(
+        package="cartographer_ros",
+        executable="cartographer_occupancy_grid_node",
+        arguments="--resolution 0.05 --publish_period_sec 1.0".split(),
+        # remappings=[("/ldlidar_node/scan", "/scan")]
+    )
+    cartographer_node = Node(
+        package="cartographer_ros",
+        executable="cartographer_node",
+        arguments=f"--configuration_directory {BB_SHARE}/config --configuration_basename lidar_2d.lua".split(),
+        # remappings=[("/ldlidar_node/scan", "/scan")]
+    )
 
     # slam toolbox
-    slam_toolbox_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(get_package_share_directory("slam_toolbox"), "launch", "online_async_launch.launch.py")
-        )
-    )
+    # slam_toolbox_launch = IncludeLaunchDescription(
+    #     PythonLaunchDescriptionSource(
+    #         os.path.join(get_package_share_directory("slam_toolbox"), "launch", "online_async_launch.launch.py")
+    #     )
+    # )
 
     
     ld = LaunchDescription()

@@ -50,7 +50,7 @@ def generate_launch_description():
         package='ldlidar_node',
         executable='ldlidar_node',
         name=node_name,
-        namespace='',
+        namespace='/',
         output='screen',
         parameters=[
             # YAML files
@@ -75,7 +75,6 @@ def generate_launch_description():
         output='screen',
         parameters=[{'robot_description': robot_desc}],
         arguments=[urdf],
-        remappings=[('scan', '/scan')]
     )
 
     # Define LaunchDescription variable
